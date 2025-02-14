@@ -21,7 +21,7 @@
       "name": "Esteban Ocon",
       "number": 31,
       "team": "Haas F1 Team",
-      "contractEnd": 2027,
+      "contractEnd": 2026,
       "teamColor": "#B6BABD"
     },
     {
@@ -68,16 +68,16 @@
       "id": 9,
       "name": "Nico Hülkenberg",
       "number": 27,
-      "team": "Kick Sauber",
+      "team": "Sauber",
       "contractEnd": 2026,
       "teamColor": "#00E701"
     },
     {
       "id": 10,
-      "name": "Sergio Perez",
-      "number": 11,
+      "name": "Liam Lawson",
+      "number": 30,
       "team": "Red Bull Racing",
-      "contractEnd": 2026,
+      "contractEnd": 2025,
       "teamColor": "#3671C6"
     },
     {
@@ -91,7 +91,7 @@
     {
       "id": 12,
       "name": "Ollie Bearman",
-      "number": 99,
+      "number": 87,
       "team": "Haas F1 Team",
       "contractEnd": 2026,
       "teamColor": "#B6BABD",
@@ -126,7 +126,7 @@
       "id": 16,
       "name": "Yuki Tsunoda",
       "number": 22,
-      "team": "VCARB",
+      "team": "Racing Bulls",
       "contractEnd": 2025,
       "teamColor": "#5E8FAA"
     },
@@ -150,8 +150,8 @@
       "id": 19,
       "name": "Gabriel Bortoleto",
       "number": 0,
-      "team": "Kick Sauber",
-      "contractEnd": 2025,
+      "team": "Sauber",
+      "contractEnd": 2026,
       "teamColor": "#00E701"
     },
     {
@@ -164,45 +164,11 @@
     },
     {
       "id": 21,
-      "name": "Daniel Ricciardo",
-      "number": 3,
-      "team": "VCARB",
-      "contractEnd": 2024,
+      "name": "Isack Hadjar",
+      "number": 6,
+      "team": "Racing Bulls",
+      "contractEnd": 2025,
       "teamColor": "#5E8FAA"
     },
-    {
-      "id": 22,
-      "name": "Zhou Guanyu",
-      "number": 24,
-      "team": "Kick Sauber", 
-      "contractEnd": 2024,
-      "teamColor": "#00E701"
-    },
-    {
-      "id": 23,
-      "name": "Franco Colapinto",
-      "number": 97,
-      "team": "Williams",
-      "contractEnd": 2024,
-      "teamColor": "#37BEDD",
-      "comment": "Replaces Sargeant after Zandvoort"
-    },
-    {
-      "id": 24,
-      "name": "Logan Sargeant",
-      "number": 2,
-      "team": "Williams",
-      "contractEnd": 2024,
-      "teamColor": "#37BEDD",
-      "comment": "Replaced by Colapinto after Zandvoort"
-    },
-    {
-      "id": 25,
-      "name": "Valtteri Bottas",
-      "number": 77,
-      "team": "Kick Sauber",
-      "contractEnd": 2024,
-      "teamColor": "#00E701"
-    }
   ]
 }
