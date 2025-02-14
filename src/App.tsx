@@ -7,8 +7,9 @@ function App() {
   const years = Array.from({ length: yearsToShow }, (_, i) => currentYear + i);
   const yearWidth = 100 / yearsToShow;
 
-  // Filter drivers with current or future contracts
-  const activeDrivers = data.drivers.filter(driver => driver.contractEnd >= currentYear);
+   const activeDrivers = data.drivers
+    .filter(driver => driver.contractEnd >= currentYear)
+    .sort((a, b) => a.contractEnd - b.contractEnd); // Sort by contractEnd
 
 
   return (
