@@ -1,0 +1,208 @@
+{
+  "drivers": [
+    {
+      "id": 1,
+      "name": "Max Verstappen",
+      "number": 1,
+      "team": "Red Bull Racing",
+      "contractEnd": 2028,
+      "teamColor": "#3671C6"
+    },
+    {
+      "id": 2,
+      "name": "Lando Norris",
+      "number": 4,
+      "team": "McLaren",
+      "contractEnd": 2027,
+      "teamColor": "#F58020"
+    },
+    {
+      "id": 3,
+      "name": "Esteban Ocon",
+      "number": 31,
+      "team": "Haas F1 Team",
+      "contractEnd": 2027,
+      "teamColor": "#B6BABD"
+    },
+    {
+      "id": 4,
+      "name": "Oscar Piastri",
+      "number": 81,
+      "team": "McLaren",
+      "contractEnd": 2026,
+      "teamColor": "#F58020"
+    },
+    {
+      "id": 5,
+      "name": "Lewis Hamilton",
+      "number": 44,
+      "team": "Ferrari",
+      "contractEnd": 2026,
+      "teamColor": "#F91536"
+    },
+    {
+      "id": 6,
+      "name": "Charles Leclerc",
+      "number": 16,
+      "team": "Ferrari",
+      "contractEnd": 2026,
+      "teamColor": "#F91536"
+    },
+    {
+      "id": 7,
+      "name": "Fernando Alonso",
+      "number": 14,
+      "team": "Aston Martin",
+      "contractEnd": 2026,
+      "teamColor": "#358C75"
+    },
+    {
+      "id": 8,
+      "name": "Alexander Albon",
+      "number": 23,
+      "team": "Williams",
+      "contractEnd": 2026,
+      "teamColor": "#37BEDD"
+    },
+    {
+      "id": 9,
+      "name": "Nico Hülkenberg",
+      "number": 27,
+      "team": "Kick Sauber",
+      "contractEnd": 2026,
+      "teamColor": "#00E701"
+    },
+    {
+      "id": 10,
+      "name": "Sergio Perez",
+      "number": 11,
+      "team": "Red Bull Racing",
+      "contractEnd": 2026,
+      "teamColor": "#3671C6"
+    },
+    {
+      "id": 11,
+      "name": "Pierre Gasly",
+      "number": 10,
+      "team": "Alpine",
+      "contractEnd": 2026,
+      "teamColor": "#2293D1"
+    },
+    {
+      "id": 12,
+      "name": "Ollie Bearman",
+      "number": 99,
+      "team": "Haas F1 Team",
+      "contractEnd": 2026,
+      "teamColor": "#B6BABD",
+      "comment": null
+    },
+    {
+      "id": 13,
+      "name": "Lance Stroll",
+      "number": 18,
+      "team": "Aston Martin",
+      "contractEnd": 2026,
+      "teamColor": "#358C75",
+      "comment": "Lance does not have a end date for his contract as far as we know"
+    },
+    {
+      "id": 14,
+      "name": "Carlos Sainz Jr.",
+      "number": 55,
+      "team": "Williams",
+      "contractEnd": 2026,
+      "teamColor": "#37BEDD"
+    },
+    {
+      "id": 15,
+      "name": "George Russell",
+      "number": 63,
+      "team": "Mercedes",
+      "contractEnd": 2025,
+      "teamColor": "#6CD3BF"
+    },
+    {
+      "id": 16,
+      "name": "Yuki Tsunoda",
+      "number": 22,
+      "team": "VCARB",
+      "contractEnd": 2025,
+      "teamColor": "#5E8FAA"
+    },
+    {
+      "id": 17,
+      "name": "Jack Doohan",
+      "number": 98,
+      "team": "Alpine",
+      "contractEnd": 2025,
+      "teamColor": "#2293D1"
+    },
+    {
+      "id": 18,
+      "name": "Kimi Antonelli",
+      "number": 96,
+      "team": "Mercedes",
+      "contractEnd": 2025,
+      "teamColor": "#6CD3BF"
+    },
+    {
+      "id": 19,
+      "name": "Gabriel Bortoleto",
+      "number": 0,
+      "team": "Kick Sauber",
+      "contractEnd": 2025,
+      "teamColor": "#00E701"
+    },
+    {
+      "id": 20,
+      "name": "Kevin Magnussen",
+      "number": 20,
+      "team": "Haas F1 Team",
+      "contractEnd": 2024,
+      "teamColor": "#B6BABD"
+    },
+    {
+      "id": 21,
+      "name": "Daniel Ricciardo",
+      "number": 3,
+      "team": "VCARB",
+      "contractEnd": 2024,
+      "teamColor": "#5E8FAA"
+    },
+    {
+      "id": 22,
+      "name": "Zhou Guanyu",
+      "number": 24,
+      "team": "Kick Sauber",
+      "contractEnd": 2024,
+      "teamColor": "#00E701"
+    },
+    {
+      "id": 23,
+      "name": "Franco Colapinto",
+      "number": 97,
+      "team": "Williams",
+      "contractEnd": 2024,
+      "teamColor": "#37BEDD",
+      "comment": "Replaces Sargeant after Zandvoort"
+    },
+    {
+      "id": 24,
+      "name": "Logan Sargeant",
+      "number": 2,
+      "team": "Williams",
+      "contractEnd": 2024,
+      "teamColor": "#37BEDD",
+      "comment": "Replaced by Colapinto after Zandvoort"
+    },
+    {
+      "id": 25,
+      "name": "Valtteri Bottas",
+      "number": 77,
+      "team": "Kick Sauber",
+      "contractEnd": 2024,
+      "teamColor": "#00E701"
+    }
+  ]
+}
