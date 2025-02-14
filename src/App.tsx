@@ -9,7 +9,7 @@ function App() {
 
    const activeDrivers = data.drivers
     .filter(driver => driver.contractEnd >= currentYear)
-    .sort((a, b) => a.contractEnd - b.contractEnd); // Sort by contractEnd
+    .sort((a, b) => b.contractEnd - a.contractEnd); // Sort by contractEnd
 
 
   return (
