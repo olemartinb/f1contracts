@@ -1,5 +1,4 @@
 import React from 'react';
-import { Trophy } from 'lucide-react';
 import data from './data/f1data.json';
 
 function App() {
@@ -11,39 +10,29 @@ function App() {
   // Filter drivers with current or future contracts
   const activeDrivers = data.drivers.filter(driver => driver.contractEnd >= currentYear);
 
-  // Format current date
-  const lastUpdated = new Date().toLocaleString('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true
-  });
 
   return (
-    <div className="min-h-screen bg-white text-black">
+    <div className="min-h-screen text-black bg-white">
       <main>
-        <div className="container mx-auto px-5">
-          <header className="mb-10 mt-16 flex flex-col items-center lg:mb-12 lg:flex-row lg:justify-between">
-            <h1 className="text-6xl font-bold leading-tight tracking-tighter md:pr-8 md:text-8xl">
+        <div className="container px-5 mx-auto">
+          <header className="flex flex-col items-center mt-16 mb-10 lg:mb-12 lg:flex-row lg:justify-between">
+            <h1 className="text-6xl font-bold tracking-tighter leading-tight md:pr-8 md:text-8xl">
               F1 Contracts
             </h1>
-            <h4 className="mt-5 text-center text-lg md:pl-8 md:text-left md:max-w-lg">
+            <h4 className="mt-5 text-lg text-center md:pl-8 md:text-left md:max-w-lg">
               <p>Stay up-to-date with the latest F1 driver contracts for the {currentYear} season.</p>
             </h4>
           </header>
 
-          <div className="flex flex-col space-y-10 md:space-y-20 mb-32">
+          <div className="flex flex-col mb-32 space-y-10 md:space-y-20">
             <div className="space-y-12">
               <div className="flex flex-col prose">
-                <div className="flex items-center gap-2">
-                  <Trophy className="w-6 h-6" />
+                <div className="flex gap-2 items-center">
                   <h2 className="text-2xl font-bold">Driver contracts for {currentYear} and beyond</h2>
                 </div>
-                <div className="text-sm text-gray-500 mt-2">
+                {/* <div className="mt-2 text-sm text-gray-500">
                   Last updated: {lastUpdated}
-                </div>
+                </div> */}
               </div>
 
               <div className="space-y-10">
