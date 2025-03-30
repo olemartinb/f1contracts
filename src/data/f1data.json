@@ -76,9 +76,9 @@
       "id": 10,
       "name": "Liam Lawson",
       "number": 30,
-      "team": "Red Bull Racing",
+      "team": "Racing Bulls",
       "contractEnd": 2025,
-      "teamColor": "#3671C6"
+      "teamColor": "#5E8FAA"
     },
     {
       "id": 11,
@@ -126,9 +126,9 @@
       "id": 16,
       "name": "Yuki Tsunoda",
       "number": 22,
-      "team": "Racing Bulls",
+      "team": "Red Bull Racing",
       "contractEnd": 2025,
-      "teamColor": "#5E8FAA"
+      "teamColor": "#3671C6"
     },
     {
       "id": 17,
