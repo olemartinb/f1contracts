@@ -116,10 +116,10 @@
     },
     {
       "id": 16,
-      "name": "Yuki Tsunoda",
-      "number": 22,
+      "name": "Arvid Lindblad",
+      "number": 41,
       "team": "Red Bull Racing",
-      "contractEnd": 2025,
+      "contractEnd": 2026,
       "teamColor": "#3671C6"
     },
     {
@@ -135,7 +135,7 @@
       "name": "Kimi Antonelli",
       "number": 96,
       "team": "Mercedes",
-      "contractEnd": 2025,
+      "contractEnd": 2026,
       "teamColor": "#6CD3BF"
     },
     {
@@ -158,9 +158,9 @@
       "id": 21,
       "name": "Isack Hadjar",
       "number": 6,
-      "team": "Racing Bulls",
-      "contractEnd": 2025,
-      "teamColor": "#5E8FAA"
+      "team": "Red Bull",
+      "contractEnd": 2026,
+      "teamColor": "#3671C6"
     },
     {
       "id": 22,
