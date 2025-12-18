@@ -2,7 +2,8 @@ import React from 'react';
 import data from './data/f1data.json';
 
 function App() {
-  const currentYear = new Date().getFullYear();
+  const seasonIsDone = true;
+  const currentYear = 2026;
   const yearsToShow = 4;
   const years = Array.from({ length: yearsToShow }, (_, i) => currentYear + i);
   const yearWidth = 100 / yearsToShow;
