@@ -48,3 +48,13 @@ Every push to `main` then deploys.
 ### Analytics
 
 Go to Cloudflare dashboard → Analytics & Logs → Web Analytics → Add a site, enter your domain, and copy the token from the snippet (the value of `"token"`). Set it as the `CF_BEACON_TOKEN` build variable. If the site uses a custom domain on a zone already in Cloudflare, you can choose automatic setup instead and skip the token.
+
+## Ads (Google AdSense)
+
+Ads are off until you add your IDs to [`src/config.ts`](src/config.ts):
+
+1. In AdSense, add the site `f1-contracts.com` and copy your publisher ID (`ca-pub-…`) into `adsense.client`. The build then adds the AdSense script and writes `/ads.txt`, which AdSense checks during site approval.
+2. Create three responsive display ad units (Ads → By ad unit → Display ads) and paste their slot IDs into `afterGrid`, `afterMarket` and `afterFaq`. Empty slots are skipped. You can also skip the units and turn on Auto ads instead.
+3. Turn on a consent message for EEA and UK visitors: AdSense → Privacy & messaging → European regulations. Google requires this for visitors from Norway and the EU, and the AdSense script shows it automatically.
+
+The privacy page at `/privacy` describes the ads once `adsense.client` is set.

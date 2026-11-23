@@ -1,6 +1,8 @@
 import { StrictMode } from 'react';
 import { renderToString } from 'react-dom/server';
 import App from './App';
+import Privacy from './Privacy';
+import { adsense } from './config';
 import { data, getTeam, gridDrivers } from './data';
 import { faq } from './faq';
 
@@ -11,6 +13,16 @@ export function render() {
     </StrictMode>,
   );
 }
+
+export function renderPrivacy() {
+  return renderToString(
+    <StrictMode>
+      <Privacy />
+    </StrictMode>,
+  );
+}
+
+export { adsense };
 
 export function structuredData(siteUrl: string | undefined) {
   const url = siteUrl ? `${siteUrl}/` : undefined;

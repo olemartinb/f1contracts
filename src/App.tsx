@@ -2,6 +2,7 @@ import { ArrowUpRight, Plus } from 'lucide-react';
 import { data, formatUpdated, getTeam, gridDrivers, leavingDrivers, lastName } from './data';
 import { Flag, Grid } from './components/Grid';
 import { faq } from './faq';
+import { AdSlot } from './components/AdSlot';
 
 const next = data.nextSeason;
 const signed = gridDrivers.filter((d) => d.status === 'signed').length;
@@ -98,6 +99,8 @@ export default function App() {
           <Grid />
         </section>
 
+        <AdSlot placement="afterGrid" />
+
         {/* Market */}
         <section className="border-y border-line bg-tar2" aria-labelledby="market">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
@@ -148,6 +151,8 @@ export default function App() {
             )}
           </div>
         </section>
+
+        <AdSlot placement="afterMarket" />
 
         {/* Line-ups */}
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="teams">
@@ -204,6 +209,7 @@ export default function App() {
             </div>
           </div>
         </section>
+        <AdSlot placement="afterFaq" />
       </main>
 
       <footer className="start-line">
@@ -211,7 +217,10 @@ export default function App() {
           <Logo />
           <p className="max-w-xl">
             Unofficial fan site, not affiliated with Formula&nbsp;1, the FIA or any team. Contract details change; every entry
-            links to its source. Last checked {formatUpdated(data.updated)}.
+            links to its source. Last checked {formatUpdated(data.updated)}.{' '}
+            <a href="/privacy" className="font-semibold text-paint underline-offset-4 hover:underline">
+              Privacy
+            </a>
           </p>
         </div>
       </footer>
