@@ -4,17 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#0A0A0C',
-        surface: '#131318',
-        line: '#26262E',
-        muted: '#9A9AA6',
-        soft: '#C9C9D1',
-        accent: '#FF1E00',
+        tar: '#26282C', // asphalt
+        tar2: '#2F3237',
+        paint: '#F4F4F0', // white line paint
+        line: '#474A50',
+        muted: '#A9ACB3',
+        flag: '#FFD400', // yellow flag
       },
       fontFamily: {
-        sans: ['Archivo', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['Archivo', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        body: ['Barlow', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        cond: ['"Barlow Condensed"', 'Barlow', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
     },
   },
