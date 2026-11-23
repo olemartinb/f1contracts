@@ -1,7 +1,7 @@
 // Post-build step: pre-renders the React app into dist/index.html and writes SEO files.
 //
 // Optional environment variables (set them in Cloudflare's build settings):
-//   SITE_URL         Public URL of the site, e.g. https://f1contracts.example.com
+//   SITE_URL         Public URL of the site (default https://www.f1-contracts.com)
 //                    Enables canonical URL, og:url, absolute og:image and sitemap.xml.
 //   CF_BEACON_TOKEN  Cloudflare Web Analytics site token. Adds the analytics beacon.
 import { readFile, writeFile, rm } from 'node:fs/promises';
@@ -12,7 +12,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const ssrDir = path.join(root, 'dist-ssr');
 
-const siteUrl = process.env.SITE_URL?.trim().replace(/\/+$/, '') || undefined;
+const siteUrl = (process.env.SITE_URL?.trim() || 'https://www.f1-contracts.com').replace(/\/+$/, '');
 const beaconToken = process.env.CF_BEACON_TOKEN?.trim() || undefined;
 
 const { render, structuredData, meta } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href);

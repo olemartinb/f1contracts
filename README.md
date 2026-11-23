@@ -38,7 +38,7 @@ The site is static and is deployed as a Cloudflare Worker with static assets (`w
 - Build command: `npm run build`
 - Deploy command: `npx wrangler deploy`
 - Build variables:
-  - `SITE_URL`: the public URL, e.g. `https://f1contracts.example.com` (turns on the canonical URL, `og:url` and `sitemap.xml`)
+  - `SITE_URL` (optional): defaults to `https://www.f1-contracts.com`; used for the canonical URL, `og:url` and `sitemap.xml`
   - `CF_BEACON_TOKEN`: your Cloudflare Web Analytics token (see below)
 
 Every push to `main` then deploys.
