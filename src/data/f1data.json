@@ -1,182 +1,299 @@
 {
+  "updated": "2026-11-23",
+  "currentSeason": 2026,
+  "nextSeason": 2027,
+  "teams": [
+    { "id": "mclaren", "name": "McLaren", "color": "#FF8000" },
+    { "id": "mercedes", "name": "Mercedes", "color": "#27F4D2" },
+    { "id": "red-bull", "name": "Red Bull Racing", "color": "#3671C6" },
+    { "id": "ferrari", "name": "Ferrari", "color": "#E8002D" },
+    { "id": "williams", "name": "Williams", "color": "#1868DB" },
+    { "id": "racing-bulls", "name": "Racing Bulls", "color": "#6692FF" },
+    { "id": "aston-martin", "name": "Aston Martin", "color": "#229971" },
+    { "id": "haas", "name": "Haas", "color": "#B6BABD" },
+    { "id": "audi", "name": "Audi", "color": "#F50537" },
+    { "id": "alpine", "name": "Alpine", "color": "#00A1E8" },
+    { "id": "cadillac", "name": "Cadillac", "color": "#C8A951" }
+  ],
   "drivers": [
     {
-      "id": 1,
+      "id": "max-verstappen",
       "name": "Max Verstappen",
-      "number": 1,
-      "team": "Red Bull Racing",
-      "contractEnd": 2028,
-      "teamColor": "#3671C6"
+      "number": 3,
+      "nationality": "NED",
+      "team": "red-bull",
+      "contractEnd": 2030,
+      "basis": "official",
+      "status": "signed",
+      "note": "Extended in August 2026 from 2028 to the end of 2030. Reports say it includes performance-related exit clauses.",
+      "source": { "label": "Red Bull", "url": "https://www.redbull.com/in-en/max-verstappen-red-bull-contract-extension-2030" }
     },
     {
-      "id": 2,
-      "name": "Lando Norris",
-      "number": 4,
-      "team": "McLaren",
-      "contractEnd": 2027,
-      "teamColor": "#F58020"
-    },
-    {
-      "id": 4,
-      "name": "Oscar Piastri",
-      "number": 81,
-      "team": "McLaren",
-      "contractEnd": 2027,
-      "teamColor": "#F58020"
-    },
-    {
-      "id": 5,
-      "name": "Lewis Hamilton",
-      "number": 44,
-      "team": "Ferrari",
-      "contractEnd": 2027,
-      "teamColor": "#F91536"
-    },
-    {
-      "id": 6,
-      "name": "Charles Leclerc",
-      "number": 16,
-      "team": "Ferrari",
-      "contractEnd": 2026,
-      "teamColor": "#F91536"
-    },
-    {
-      "id": 7,
-      "name": "Fernando Alonso",
-      "number": 14,
-      "team": "Aston Martin",
-      "contractEnd": 2026,
-      "teamColor": "#358C75"
-    },
-    {
-      "id": 8,
-      "name": "Alexander Albon",
-      "number": 23,
-      "team": "Williams",
-      "contractEnd": 2026,
-      "teamColor": "#37BEDD"
-    },
-    {
-      "id": 9,
-      "name": "Nico Hülkenberg",
-      "number": 27,
-      "team": "Audi",
-      "contractEnd": 2027,
-      "teamColor": "#E30613"
-    },
-    {
-      "id": 10,
-      "name": "Liam Lawson",
-      "number": 30,
-      "team": "Racing Bulls",
-      "contractEnd": 2026,
-      "teamColor": "#5E8FAA"
-    },
-    {
-      "id": 11,
-      "name": "Pierre Gasly",
-      "number": 10,
-      "team": "Alpine",
-      "contractEnd": 2028,
-      "teamColor": "#2293D1"
-    },
-    {
-      "id": 12,
-      "name": "Ollie Bearman",
-      "number": 87,
-      "team": "Haas F1 Team",
-      "contractEnd": 2026,
-      "teamColor": "#B6BABD",
-      "comment": null
-    },
-    {
-      "id": 13,
-      "name": "Lance Stroll",
-      "number": 18,
-      "team": "Aston Martin",
-      "contractEnd": 2026,
-      "teamColor": "#358C75",
-      "comment": "Lance does not have a end date for his contract as far as we know"
-    },
-    {
-      "id": 14,
-      "name": "Carlos Sainz Jr.",
-      "number": 55,
-      "team": "Williams",
-      "contractEnd": 2026,
-      "teamColor": "#37BEDD"
-    },
-    {
-      "id": 15,
-      "name": "George Russell",
-      "number": 63,
-      "team": "Mercedes",
-      "contractEnd": 2026,
-      "teamColor": "#6CD3BF"
-    },
-    {
-      "id": 16,
-      "name": "Arvid Lindblad",
-      "number": 41,
-      "team": "Red Bull Racing",
-      "contractEnd": 2026,
-      "teamColor": "#3671C6"
-    },
-    {
-      "id": 17,
-      "name": "Franco Colapinto",
-      "number": 43,
-      "team": "Alpine",
-      "contractEnd": 2026,
-      "teamColor": "#2293D1"
-    },
-    {
-      "id": 18,
-      "name": "Kimi Antonelli",
-      "number": 96,
-      "team": "Mercedes",
-      "contractEnd": 2026,
-      "teamColor": "#6CD3BF"
-    },
-    {
-      "id": 19,
-      "name": "Gabriel Bortoleto",
-      "number": 5,
-      "team": "Audi",
-      "contractEnd": 2026,
-      "teamColor": "#E30613"
-    },
-    {
-      "id": 20,
-      "name": "Esteban Ocon",
-      "number": 31,
-      "team": "Haas F1 Team",
-      "contractEnd": 2026,
-      "teamColor": "#B6BABD"
-    },
-    {
-      "id": 21,
+      "id": "isack-hadjar",
       "name": "Isack Hadjar",
       "number": 6,
-      "team": "Red Bull",
-      "contractEnd": 2026,
-      "teamColor": "#3671C6"
-    },
-    {
-      "id": 22,
-      "name": "Sergio Perez",
-      "number": 11,
-      "team": "Cadillac",
+      "nationality": "FRA",
+      "team": "red-bull",
       "contractEnd": 2027,
-      "teamColor": "#565F64"
+      "basis": "official",
+      "status": "signed",
+      "note": "Extended for one more year alongside Verstappen.",
+      "source": { "label": "ESPN", "url": "https://www.espn.com/f1/story/_/id/50011696/isack-hadjar-signs-red-bull-extension-race-alongside-max-verstappen-2027" }
     },
     {
-      "id": 23,
+      "id": "lando-norris",
+      "name": "Lando Norris",
+      "number": 1,
+      "nationality": "GBR",
+      "team": "mclaren",
+      "contractEnd": 2030,
+      "optionBeyond": true,
+      "basis": "official",
+      "status": "signed",
+      "note": "2025 world champion. Signed in August 2026 until at least the end of 2030, with a multi-year option beyond that.",
+      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/lando-norris-commits-future-to-mclaren-as-he-signs-new-deal-until-the-end-of-2030.7ErHTktjoW2mAo5zEEtuA0" }
+    },
+    {
+      "id": "oscar-piastri",
+      "name": "Oscar Piastri",
+      "number": 81,
+      "nationality": "AUS",
+      "team": "mclaren",
+      "contractEnd": 2028,
+      "basis": "reported",
+      "status": "signed",
+      "note": "Multi-year extension signed in March 2025. McLaren did not give an end date; widely reported as at least 2028.",
+      "source": { "label": "Sky Sports", "url": "https://www.skysports.com/f1/news/12433/13326165/oscar-piastri-mclaren-driver-signs-new-contract-extension-until-at-least-2028" }
+    },
+    {
+      "id": "charles-leclerc",
+      "name": "Charles Leclerc",
+      "number": 16,
+      "nationality": "MON",
+      "team": "ferrari",
+      "contractEnd": 2028,
+      "basis": "reported",
+      "status": "signed",
+      "note": "Extended before the 2026 Monaco Grand Prix. Ferrari did not give the length; Sky Sports reports the end of 2028.",
+      "source": { "label": "Sky Sports", "url": "https://www.skysports.com/f1/news/12433/13550326/charles-leclerc-ferrari-driver-extends-contract-with-team-ahead-of-home-monaco-grand-prix" }
+    },
+    {
+      "id": "lewis-hamilton",
+      "name": "Lewis Hamilton",
+      "number": 44,
+      "nationality": "GBR",
+      "team": "ferrari",
+      "contractEnd": 2027,
+      "optionYear": 2028,
+      "basis": "reported",
+      "status": "signed",
+      "note": "Ferrari has never confirmed the length. Reported to run through 2027, with a 2028 option that Hamilton alone can trigger.",
+      "source": { "label": "PlanetF1", "url": "https://www.planetf1.com/news/lewis-hamilton-ferrari-contract-2028-option-martin-brundle" }
+    },
+    {
+      "id": "george-russell",
+      "name": "George Russell",
+      "number": 63,
+      "nationality": "GBR",
+      "team": "mercedes",
+      "contractEnd": 2027,
+      "basis": "reported",
+      "status": "signed",
+      "note": "One-plus-one deal signed in 2025. Toto Wolff has confirmed him for 2027.",
+      "source": { "label": "Motorsport.com", "url": "https://www.motorsport.com/f1/news/mercedes-to-keep-driver-line-up-for-f1-2027-says-toto-wolff/10833944/" }
+    },
+    {
+      "id": "kimi-antonelli",
+      "name": "Kimi Antonelli",
+      "number": 12,
+      "nationality": "ITA",
+      "team": "mercedes",
+      "contractEnd": 2027,
+      "basis": "reported",
+      "status": "signed",
+      "note": "2026 world champion, clinched in Mexico City. Confirmed for 2027; reports say Mercedes holds options beyond that.",
+      "source": { "label": "GrandPrix.com", "url": "https://www.grandprix.com/news/antonelli-has-2027-mercedes-deal-as-wolff-promises-appropriate-reward.html" }
+    },
+    {
+      "id": "fernando-alonso",
+      "name": "Fernando Alonso",
+      "number": 14,
+      "nationality": "ESP",
+      "team": "aston-martin",
+      "contractEnd": 2027,
+      "basis": "official",
+      "status": "signed",
+      "note": "Extended in September 2026. Alonso has said the new deal covers only 2027.",
+      "source": { "label": "F1-Fansite", "url": "https://www.f1-fansite.com/f1-news/alonso-still-doubts-this-is-his-final-f1-deal/" }
+    },
+    {
+      "id": "lance-stroll",
+      "name": "Lance Stroll",
+      "number": 18,
+      "nationality": "CAN",
+      "team": "aston-martin",
+      "contractEnd": 2027,
+      "basis": "reported",
+      "status": "signed",
+      "note": "Extended alongside Alonso in September 2026 on what the team called a long-term deal. No end date given; at least 2027.",
+      "source": { "label": "Honda", "url": "https://global.honda/en/F1/AstonMartin/2027-season-release/" }
+    },
+    {
+      "id": "alexander-albon",
+      "name": "Alexander Albon",
+      "number": 23,
+      "nationality": "THA",
+      "team": "williams",
+      "contractEnd": 2027,
+      "basis": "official",
+      "status": "signed",
+      "note": "One-year extension announced in August 2026.",
+      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/williams-confirm-albon-will-remain-with-the-team-in-2027.3ZwdrAmEY4MGL5Ce1eXHIQ" }
+    },
+    {
+      "id": "carlos-sainz",
+      "name": "Carlos Sainz",
+      "number": 55,
+      "nationality": "ESP",
+      "team": "williams",
+      "contractEnd": 2028,
+      "basis": "reported",
+      "status": "signed",
+      "note": "Multi-year extension announced in August 2026. Length not disclosed; at least 2028.",
+      "source": { "label": "Sky Sports", "url": "https://www.skysports.com/f1/news/12433/13574716/carlos-sainz-williams-driver-signs-multi-year-contract-extension-to-remain-with-team-in-2027-and-beyond" }
+    },
+    {
+      "id": "liam-lawson",
+      "name": "Liam Lawson",
+      "number": 30,
+      "nationality": "NZL",
+      "team": "racing-bulls",
+      "contractEnd": 2027,
+      "basis": "official",
+      "status": "signed",
+      "note": "New contract for 2027 announced on 12 November 2026.",
+      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/lawson-and-lindblad-to-remain-at-racing-bulls-for-2027-as-team-confirm-unchanged-line-up.1vwKafZKAx8zw2Tb4B8fPx" }
+    },
+    {
+      "id": "arvid-lindblad",
+      "name": "Arvid Lindblad",
+      "number": 41,
+      "nationality": "GBR",
+      "team": "racing-bulls",
+      "contractEnd": 2027,
+      "basis": "official",
+      "status": "signed",
+      "note": "Stays for a second season after his 2026 rookie year.",
+      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/lawson-and-lindblad-to-remain-at-racing-bulls-for-2027-as-team-confirm-unchanged-line-up.1vwKafZKAx8zw2Tb4B8fPx" }
+    },
+    {
+      "id": "nico-hulkenberg",
+      "name": "Nico Hülkenberg",
+      "number": 27,
+      "nationality": "GER",
+      "team": "audi",
+      "contractEnd": 2027,
+      "basis": "official",
+      "status": "signed",
+      "note": "Mattia Binotto confirmed his existing deal covers 2027.",
+      "source": { "label": "GrandPrix.com", "url": "https://www.grandprix.com/news/audi-confirms-hulkenberg-and-bortoleto-for-2027.html" }
+    },
+    {
+      "id": "gabriel-bortoleto",
+      "name": "Gabriel Bortoleto",
+      "number": 5,
+      "nationality": "BRA",
+      "team": "audi",
+      "contractEnd": 2027,
+      "basis": "official",
+      "status": "signed",
+      "note": "Under contract until at least the end of 2027.",
+      "source": { "label": "GrandPrix.com", "url": "https://www.grandprix.com/news/audi-confirms-hulkenberg-and-bortoleto-for-2027.html" }
+    },
+    {
+      "id": "pierre-gasly",
+      "name": "Pierre Gasly",
+      "number": 10,
+      "nationality": "FRA",
+      "team": "alpine",
+      "contractEnd": 2028,
+      "basis": "official",
+      "status": "signed",
+      "note": "Extension signed in 2025 runs to the end of 2028.",
+      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/gasly-commits-long-term-future-to-alpine-as-he-signs-new-contract-extension.wgdUGA4Xzo6fWpo6JK7eg" }
+    },
+    {
+      "id": "franco-colapinto",
+      "name": "Franco Colapinto",
+      "number": 43,
+      "nationality": "ARG",
+      "team": "alpine",
+      "contractEnd": 2027,
+      "basis": "official",
+      "status": "signed",
+      "note": "Alpine took up its option for 2027.",
+      "source": { "label": "ESPN", "url": "https://www.espn.co.uk/f1/story/_/id/49740685/franco-colapinto-signs-new-contract-stay-alpine-2027-formula-1" }
+    },
+    {
+      "id": "oliver-bearman",
+      "name": "Oliver Bearman",
+      "number": 87,
+      "nationality": "GBR",
+      "team": "haas",
+      "contractEnd": 2027,
+      "basis": "reported",
+      "status": "unsigned",
+      "note": "Ayao Komatsu confirmed him for 2027 in Las Vegas, but the contract is not yet signed.",
+      "source": { "label": "RaceFans", "url": "https://www.racefans.net/2026/11/19/people-in-the-team-are-asking-why-my-2027-deal-hasnt-been-announced-bearman/" }
+    },
+    {
+      "id": "rafael-camara",
+      "name": "Rafael Câmara",
+      "number": null,
+      "nationality": "BRA",
+      "team": "haas",
+      "contractEnd": 2028,
+      "basis": "reported",
+      "status": "signed",
+      "rookie": true,
+      "note": "Ferrari junior and F3 champion. Multi-year deal from 2027 replacing Esteban Ocon; length not disclosed. Race number not yet announced.",
+      "source": { "label": "RACER", "url": "https://racer.com/2026/10/15/haas-f1-signs-rookie-camara-to-multi-year-contract-from-2027" }
+    },
+    {
+      "id": "sergio-perez",
+      "name": "Sergio Pérez",
+      "number": 11,
+      "nationality": "MEX",
+      "team": "cadillac",
+      "contractEnd": 2029,
+      "basis": "official",
+      "status": "signed",
+      "note": "Multi-year extension to 2029 announced before the 2026 Mexico City Grand Prix.",
+      "source": { "label": "Grande Prêmio", "url": "https://grandepremio.com/en/f1/cadillac-confirms-perez-on-new-f1-contract-through-2029-as-bottas-seat-remains-uncertain/" }
+    },
+    {
+      "id": "valtteri-bottas",
       "name": "Valtteri Bottas",
       "number": 77,
-      "team": "Cadillac",
+      "nationality": "FIN",
+      "team": "cadillac",
       "contractEnd": 2027,
-      "teamColor": "#565F64"
+      "basis": "official",
+      "status": "signed",
+      "note": "Cadillac took up his 2027 option on 18 November 2026.",
+      "source": { "label": "Yahoo Sports", "url": "https://sports.yahoo.com/articles/bottas-cadillac-deal-2027-cadillac-205835600.html" }
+    },
+    {
+      "id": "esteban-ocon",
+      "name": "Esteban Ocon",
+      "number": 31,
+      "nationality": "FRA",
+      "team": "haas",
+      "contractEnd": 2026,
+      "basis": "official",
+      "status": "leaving",
+      "note": "Leaves Haas after the 2026 season. No 2027 race seat confirmed.",
+      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/ocon-confirms-he-will-leave-haas-at-end-of-2026-season.cJjg9W9Om5ZW6Mn9GZ75v" }
     }
   ]
 }
