@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // Static site served by Cloudflare Workers (static assets, no server code).
+  "name": "f1contracts",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist"
+  },
+  "workers_dev": true
+}
