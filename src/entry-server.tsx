@@ -2,69 +2,39 @@ import { StrictMode } from 'react';
 import { renderToString } from 'react-dom/server';
 import App from './App';
 import Privacy from './Privacy';
+import DriverPage from './pages/DriverPage';
+import { ChangesPage, DriversIndex, TeamPage, TeamsIndex } from './pages/OtherPages';
 import { adsense } from './config';
-import { data, getTeam, gridDrivers } from './data';
-import { faq } from './faq';
-
-export function render() {
-  return renderToString(
-    <StrictMode>
-      <App />
-    </StrictMode>,
-  );
-}
-
-export function renderPrivacy() {
-  return renderToString(
-    <StrictMode>
-      <Privacy />
-    </StrictMode>,
-  );
-}
+import { data } from './data';
+import {
+  changesMeta,
+  driverMeta,
+  driversIndexMeta,
+  homeMeta,
+  privacyMeta,
+  teamMeta,
+  teamsIndexMeta,
+  type PageMeta,
+} from './seo';
 
 export { adsense };
 
-export function structuredData(siteUrl: string | undefined) {
-  const url = siteUrl ? `${siteUrl}/` : undefined;
-  return [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebPage',
-      name: `F1 Driver Contracts ${data.nextSeason}`,
-      description: `When every Formula 1 driver's contract expires, for the ${data.nextSeason} season and beyond.`,
-      ...(url && { url }),
-      dateModified: data.updated,
-      inLanguage: 'en',
-      mainEntity: {
-        '@type': 'ItemList',
-        name: `F1 driver contracts for ${data.nextSeason}`,
-        numberOfItems: gridDrivers.length,
-        itemListElement: gridDrivers.map((d, i) => ({
-          '@type': 'ListItem',
-          position: i + 1,
-          item: {
-            '@type': 'Person',
-            name: d.name,
-            jobTitle: 'Formula 1 driver',
-            memberOf: { '@type': 'SportsTeam', name: getTeam(d.team).name, sport: 'Formula 1' },
-            description: `Contract ends after the ${d.contractEnd} season.`,
-          },
-        })),
-      },
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: faq.map((f) => ({
-        '@type': 'Question',
-        name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
-      })),
-    },
-  ];
+export interface RenderedPage extends PageMeta {
+  html: string;
+  /** Only the home page is interactive; the rest ship as plain HTML. */
+  hydrate: boolean;
 }
 
-export const meta = {
-  updated: data.updated,
-  nextSeason: data.nextSeason,
-};
+const html = (node: React.ReactNode) => renderToString(<StrictMode>{node}</StrictMode>);
+
+export function pages(site: string): RenderedPage[] {
+  return [
+    { ...homeMeta(site), html: html(<App />), hydrate: true },
+    ...data.drivers.map((d) => ({ ...driverMeta(site, d), html: html(<DriverPage driver={d} />), hydrate: false })),
+    ...data.teams.map((t) => ({ ...teamMeta(site, t), html: html(<TeamPage team={t} />), hydrate: false })),
+    { ...driversIndexMeta(site), html: html(<DriversIndex />), hydrate: false },
+    { ...teamsIndexMeta(site), html: html(<TeamsIndex />), hydrate: false },
+    { ...changesMeta(site), html: html(<ChangesPage />), hydrate: false },
+    { ...privacyMeta(), html: html(<Privacy />), hydrate: false },
+  ];
+}

@@ -16,7 +16,9 @@ All data lives in [`src/data/f1data.json`](src/data/f1data.json). For each drive
 | `rookie` | `true` for a driver's first season |
 | `source` | Link shown next to the note. Always add one. |
 
-Bump `updated` whenever you change the data. At the end of a season, move `currentSeason` and `nextSeason` forward and update the year in the `<title>` and meta tags in `index.html`.
+Bump `updated` whenever you change the data, and add a dated entry to [`src/data/changes.json`](src/data/changes.json) (newest first is not required; the site sorts them). Each entry has a `date` (`YYYY-MM-DD`, or `YYYY-MM` if only the month is known), a `driver` or `team` id, the `text` and a `source`. Changes show on the home page, on `/changes` and on the driver and team pages.
+
+Every driver and team gets its own pre-rendered page (`/drivers/<id>`, `/teams/<id>`), plus `/drivers`, `/teams` and `/changes`, all listed in `sitemap.xml`. At the end of a season, move `currentSeason` and `nextSeason` forward and update the year in the `<title>` and meta tags in `index.html`.
 
 ## Development
 

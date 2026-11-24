@@ -1,5 +1,6 @@
 import { ArrowUpRight, Plus } from 'lucide-react';
-import { data, formatUpdated, getTeam, gridDrivers, leavingDrivers, lastName } from './data';
+import { changes, data, driverById, driverPath, formatChangeDate, formatUpdated, getTeam, gridDrivers, leavingDrivers, lastName, teamById, teamPath } from './data';
+import { SiteFooter, SiteHeader } from './components/Shell';
 import { Flag, Grid } from './components/Grid';
 import { faq } from './faq';
 import { AdSlot } from './components/AdSlot';
@@ -10,14 +11,6 @@ const expiringNext = gridDrivers.filter((d) => d.contractEnd === next && !d.opti
 const longest = Math.max(...gridDrivers.map((d) => d.contractEnd));
 const longestNames = gridDrivers.filter((d) => d.contractEnd === longest).map((d) => lastName(d.name));
 const officialCount = gridDrivers.filter((d) => d.basis === 'official').length;
-
-function Logo() {
-  return (
-    <a href="#top" className="font-cond text-xl font-black uppercase italic tracking-tight sm:text-2xl">
-      F1<span className="px-0.5 text-flag">/</span>Contracts
-    </a>
-  );
-}
 
 function SectionHeading({ id, eyebrow, title, children }: { id: string; eyebrow: string; title: string; children?: React.ReactNode }) {
   return (
@@ -50,26 +43,13 @@ export default function App() {
         Skip to the grid
       </a>
 
-      <header className="sticky top-0 z-40 border-b border-line bg-tar/90 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-          <Logo />
-          <nav aria-label="Sections" className="hidden gap-6 text-sm font-semibold text-muted sm:flex">
-            <a className="hover:text-paint" href="#grid">The grid</a>
-            <a className="hover:text-paint" href="#market">{next + 1} market</a>
-            <a className="hover:text-paint" href="#teams">Line-ups</a>
-            <a className="hover:text-paint" href="#faq">FAQ</a>
-          </nav>
-          <span className="text-xs text-muted sm:hidden">
-            Updated <time dateTime={data.updated}>{formatUpdated(data.updated)}</time>
-          </span>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main>
         {/* Hero */}
         <section className="tarmac">
           <div className="mx-auto max-w-6xl px-4 pb-14 pt-12 sm:px-6 sm:pb-20 sm:pt-20">
-            <p className="mb-5 hidden font-body text-sm text-muted sm:block">
+            <p className="mb-5 font-body text-sm text-muted">
               Updated <time dateTime={data.updated}>{formatUpdated(data.updated)}</time>
             </p>
             <h1 className="font-cond text-[13vw] font-black uppercase italic leading-[0.85] tracking-tight sm:text-8xl lg:text-[124px]">
@@ -116,7 +96,7 @@ export default function App() {
                       {d.number ?? '?'}
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate font-cond text-lg font-extrabold uppercase leading-tight">{d.name}</p>
+                      <a href={driverPath(d)} className="block truncate font-cond text-lg font-extrabold uppercase leading-tight hover:text-flag">{d.name}</a>
                       <p className="text-sm text-muted">{team.name}</p>
                     </div>
                     {d.optionYear ? (
@@ -138,7 +118,8 @@ export default function App() {
                   {leavingDrivers.map((d) => (
                     <li key={d.id} className="flex flex-col gap-1 border-2 border-dashed border-line p-4 sm:flex-row sm:items-center sm:gap-4">
                       <p className="font-cond text-lg font-extrabold uppercase">
-                        {d.name} <span className="font-body text-sm font-normal normal-case text-muted">· {getTeam(d.team).name}</span>
+                        <a href={driverPath(d)} className="hover:text-flag">{d.name}</a>{' '}
+                        <span className="font-body text-sm font-normal normal-case text-muted">· {getTeam(d.team).name}</span>
                       </p>
                       <p className="text-sm text-muted sm:flex-1">{d.note}</p>
                       <a href={d.source.url} target="_blank" rel="noopener" className="inline-flex items-center gap-0.5 text-sm font-semibold text-flag hover:underline">
@@ -150,6 +131,37 @@ export default function App() {
               </div>
             )}
           </div>
+        </section>
+
+        {/* Latest changes */}
+        <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20" aria-labelledby="latest">
+          <SectionHeading id="latest" eyebrow="Contract news" title="Latest changes" />
+          <ol className="grid gap-3 sm:grid-cols-2">
+            {changes.slice(0, 4).map((c) => {
+              const driver = c.driver ? driverById.get(c.driver) : undefined;
+              const team = teamById.get(c.team ?? driver?.team ?? '');
+              return (
+                <li key={c.date + c.text} className="relative border-2 border-line bg-tar2 p-4 pl-5">
+                  <span className="absolute inset-y-0 left-0 w-1.5" style={{ background: team?.color }} aria-hidden />
+                  <p className="text-xs font-semibold uppercase tracking-widest text-muted">
+                    <time dateTime={c.date}>{formatChangeDate(c.date)}</time>
+                  </p>
+                  <p className="mt-1.5 leading-relaxed">
+                    {driver ? (
+                      <a href={driverPath(driver)} className="hover:text-flag">{c.text}</a>
+                    ) : team ? (
+                      <a href={teamPath(team)} className="hover:text-flag">{c.text}</a>
+                    ) : (
+                      c.text
+                    )}
+                  </p>
+                </li>
+              );
+            })}
+          </ol>
+          <p className="mt-6">
+            <a href="/changes" className="font-semibold text-flag underline-offset-4 hover:underline">All contract changes →</a>
+          </p>
         </section>
 
         <AdSlot placement="afterMarket" />
@@ -166,7 +178,9 @@ export default function App() {
                 <article key={team.id} className="border-2 border-line bg-tar2">
                   <div className="h-1.5" style={{ background: team.color }} aria-hidden />
                   <div className="p-5">
-                    <h3 className="font-cond text-2xl font-black uppercase italic leading-none">{team.name}</h3>
+                    <h3 className="font-cond text-2xl font-black uppercase italic leading-none">
+                      <a href={teamPath(team)} className="hover:text-flag">{team.name}</a>
+                    </h3>
                     <ul className="mt-4 space-y-2.5">
                       {drivers.map((d) => (
                         <li key={d.id} className="flex items-center justify-between gap-3">
@@ -174,7 +188,7 @@ export default function App() {
                             <span className="w-7 shrink-0 text-right font-cond text-lg font-black italic tabular-nums" style={{ color: team.color }}>
                               {d.number ?? '?'}
                             </span>
-                            <span className="truncate">{d.name}</span>
+                            <a href={driverPath(d)} className="truncate hover:text-flag">{d.name}</a>
                             {d.rookie && <Flag>Rookie</Flag>}
                           </span>
                           <span className="flex items-center gap-0.5 font-cond text-xl font-black italic tabular-nums">
@@ -212,18 +226,7 @@ export default function App() {
         <AdSlot placement="afterFaq" />
       </main>
 
-      <footer className="start-line">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <Logo />
-          <p className="max-w-xl">
-            Unofficial fan site, not affiliated with Formula&nbsp;1, the FIA or any team. Contract details change; every entry
-            links to its source. Last checked {formatUpdated(data.updated)}.{' '}
-            <a href="/privacy" className="font-semibold text-paint underline-offset-4 hover:underline">
-              Privacy
-            </a>
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }
