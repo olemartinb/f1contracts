@@ -31,23 +31,21 @@ The build pre-renders the page into `dist/index.html` so search engines get the 
 
 ## Deploying to Cloudflare
 
-The site is static and is deployed as a Cloudflare Worker with static assets (`wrangler.jsonc`).
+The site is deployed as the Cloudflare Worker `f1contracts` (`wrangler.jsonc`). `npm run build` pre-renders the pages and packs every file in `dist/` into `worker/assets.generated.js`. `worker/index.js` serves those files, sets cache and security headers, and redirects `f1-contracts.com` to `www.f1-contracts.com`. Packing the files into the Worker means a deploy needs only an API token, with no separate asset upload.
 
-**Automatic deploys (recommended):** In the Cloudflare dashboard go to Workers & Pages → Create → Import a repository, and pick this repo. Use:
+**Automatic deploys (optional):** In the Cloudflare dashboard, open the `f1contracts` Worker → Settings → Builds → Connect, and pick this repo. Use:
 
 - Build command: `npm run build`
 - Deploy command: `npx wrangler deploy`
-- Build variables:
-  - `SITE_URL` (optional): defaults to `https://www.f1-contracts.com`; used for the canonical URL, `og:url` and `sitemap.xml`
-  - `CF_BEACON_TOKEN`: your Cloudflare Web Analytics token (see below)
+- Build variable `SITE_URL` (optional): defaults to `https://www.f1-contracts.com`; used for the canonical URL, `og:url` and `sitemap.xml`
 
 Every push to `main` then deploys.
 
-**Manual deploy:** `npx wrangler login` and then `npm run deploy`.
+**Manual deploy:** `npx wrangler login` (or set `CLOUDFLARE_API_TOKEN`) and then `npm run deploy`.
 
 ### Analytics
 
-Go to Cloudflare dashboard → Analytics & Logs → Web Analytics → Add a site, enter your domain, and copy the token from the snippet (the value of `"token"`). Set it as the `CF_BEACON_TOKEN` build variable. If the site uses a custom domain on a zone already in Cloudflare, you can choose automatic setup instead and skip the token.
+Cloudflare Web Analytics runs in automatic mode on the `f1-contracts.com` zone: Cloudflare adds the beacon to pages it serves, so no token is needed in the build. To use a manual token instead (for example on a domain outside Cloudflare), set the `CF_BEACON_TOKEN` build variable.
 
 ## Ads (Google AdSense)
 

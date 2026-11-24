@@ -1,10 +1,10 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  // Static site served by Cloudflare Workers (static assets, no server code).
+  // Serves the pre-built site; files are packed into the Worker by scripts/embed-assets.mjs.
   "name": "f1contracts",
+  "main": "worker/index.js",
   "compatibility_date": "2026-11-01",
-  "assets": {
-    "directory": "./dist"
-  },
-  "workers_dev": true
+  "account_id": "2d23111d9e4ae8b5fac821efbfe9a98d",
+  "workers_dev": true,
+  "preview_urls": false
 }
