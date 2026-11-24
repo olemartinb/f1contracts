@@ -8,7 +8,7 @@
  * The build also writes /ads.txt from `client`.
  */
 export const adsense = {
-  client: '',
+  client: 'ca-pub-5080402579240378',
   slots: {
     afterGrid: '',
     afterMarket: '',
