@@ -85,7 +85,10 @@ export default function App() {
         <section className="border-y border-line bg-tar2" aria-labelledby="market">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
             <SectionHeading id="market" eyebrow="Next silly season" title={`${expiringNext.length} drivers out of contract after ${next}`}>
-              These deals end with the {next} season, which makes the {next + 1} driver market one of the biggest in years.
+              These deals end with the {next} season, which makes the {next + 1} driver market one of the biggest in years.{' '}
+              <a href="/driver-market" className="font-semibold text-flag underline-offset-4 hover:underline">
+                See the full {next + 1} driver market →
+              </a>
             </SectionHeading>
             <ul className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
               {expiringNext.map((d) => {

@@ -18,6 +18,9 @@ export function SiteHeader() {
           <a className="hover:text-paint" href="/#grid">
             Grid
           </a>
+          <a className="hover:text-paint" href="/driver-market">
+            Market
+          </a>
           <a className="hover:text-paint" href="/teams">
             Teams
           </a>
@@ -62,7 +65,9 @@ export function SiteFooter() {
             <li><a className="hover:text-paint" href="/#grid">The {data.nextSeason} grid</a></li>
             <li><a className="hover:text-paint" href="/drivers">All drivers</a></li>
             <li><a className="hover:text-paint" href="/teams">All teams</a></li>
+            <li><a className="hover:text-paint" href="/driver-market">{data.nextSeason + 1} driver market</a></li>
             <li><a className="hover:text-paint" href="/changes">Latest changes</a></li>
+            <li><a className="hover:text-paint" href="/changes.xml">RSS feed</a></li>
             <li><a className="hover:text-paint" href="/#faq">FAQ</a></li>
             <li><a className="hover:text-paint" href="/privacy">Privacy</a></li>
           </ul>

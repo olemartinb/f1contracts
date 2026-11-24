@@ -84,6 +84,8 @@ export interface PageMeta {
   jsonLd: object[];
   lastmod: string;
   priority: string;
+  /** Social preview image path; defaults to /og.png. */
+  image?: string;
 }
 
 const faqLd = (items: FaqItem[]) => ({
@@ -157,6 +159,7 @@ export function driverMeta(site: string, d: Driver): PageMeta {
     description,
     lastmod: latestChangeFor((c) => c.driver === d.id || c.team === d.team),
     priority: d.status === 'leaving' ? '0.5' : '0.8',
+    image: `/og/drivers/${d.id}.jpg`,
     jsonLd: [
       crumbsLd(site, [
         { name: 'Home', path: '/' },
@@ -256,5 +259,57 @@ export function privacyMeta(): PageMeta {
     lastmod: data.updated,
     priority: '0.2',
     jsonLd: [],
+  };
+}
+
+export const marketYear = data.nextSeason + 1;
+export const outAfterNext = gridDrivers.filter((d) => d.contractEnd === data.nextSeason && !d.optionBeyond);
+export const signedBeyond = gridDrivers.filter((d) => d.contractEnd > data.nextSeason || d.optionBeyond);
+export const teamsFullyOpen = data.teams.filter((t) => {
+  const ds = gridDrivers.filter((d) => d.team === t.id);
+  return ds.length > 0 && ds.every((d) => outAfterNext.includes(d));
+});
+
+export function marketFaq(): FaqItem[] {
+  const next = data.nextSeason;
+  return [
+    {
+      q: `Which F1 drivers are out of contract after ${next}?`,
+      a: `${outAfterNext.length} drivers: ${list(outAfterNext.map((d) => `${d.name} (${getTeam(d.team).name})`))}.`,
+    },
+    {
+      q: `How many F1 seats are open for ${marketYear}?`,
+      a: `${signedBeyond.length} of ${gridDrivers.length} drivers are already signed for ${marketYear} or later, so up to ${outAfterNext.length} seats could change. Some of those deals have options that a team or driver can take up.`,
+    },
+    {
+      q: `Which teams have both drivers out of contract after ${next}?`,
+      a: teamsFullyOpen.length
+        ? `${list(teamsFullyOpen.map((t) => t.name))}. Both of their current drivers have deals that end with the ${next} season.`
+        : `None. Every team has at least one driver signed beyond ${next}.`,
+    },
+    {
+      q: `Who is already signed for ${marketYear}?`,
+      a: `${list(signedBeyond.map((d) => `${d.name} (${getTeam(d.team).name}, ${contractShort(d)})`))}.`,
+    },
+  ];
+}
+
+export function marketMeta(site: string): PageMeta {
+  return {
+    path: '/driver-market',
+    title: `F1 ${marketYear} Driver Market: Every Driver Out of Contract After ${data.nextSeason} | ${SITE_NAME}`,
+    description: clip(
+      `${outAfterNext.length} F1 drivers are out of contract after ${data.nextSeason}, including ${list(outAfterNext.slice(0, 4).map((d) => d.name))}. Who is free, who is signed for ${marketYear}, and the options to watch.`,
+    ),
+    lastmod: data.updated,
+    priority: '0.9',
+    image: '/og/driver-market.jpg',
+    jsonLd: [
+      crumbsLd(site, [
+        { name: 'Home', path: '/' },
+        { name: `${marketYear} driver market`, path: '/driver-market' },
+      ]),
+      faqLd(marketFaq()),
+    ],
   };
 }

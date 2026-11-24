@@ -167,6 +167,11 @@ export function ChangesPage() {
       </h1>
       <p className={lede}>
         Every contract change we track, newest first: signings, extensions, options and exits. Each one links to its source.
+        Follow along with the{' '}
+        <a href="/changes.xml" className="font-semibold text-paint underline underline-offset-4">
+          RSS feed
+        </a>
+        .
       </p>
       <ol className="mt-10 space-y-3">
         {changes.map((c) => {
