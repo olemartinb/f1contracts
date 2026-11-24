@@ -27,3 +27,6 @@ dist-ssr
 .wrangler
 .dev.vars
 .env
+
+# Generated Worker assets
+worker/assets.generated.js
