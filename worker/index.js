@@ -3,6 +3,7 @@ import assets from './assets.generated.js';
 
 const CANONICAL_HOST = 'www.f1-contracts.com';
 const REDIRECT_HOSTS = new Set(['f1-contracts.com']);
+const ROOT_FILES = new Set(['/ads.txt', '/robots.txt']);
 
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
@@ -38,7 +39,8 @@ export default {
   async fetch(request) {
     const url = new URL(request.url);
 
-    if (REDIRECT_HOSTS.has(url.hostname)) {
+    // Crawlers fetch these from the root domain; serve them directly instead of redirecting.
+    if (REDIRECT_HOSTS.has(url.hostname) && !ROOT_FILES.has(url.pathname)) {
       url.hostname = CANONICAL_HOST;
       return Response.redirect(url.toString(), 301);
     }
