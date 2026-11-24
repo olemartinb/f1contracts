@@ -1,23 +1,13 @@
 import { data, formatUpdated } from './data';
 import { adsense } from './config';
+import { Page } from './components/Shell';
 
 const ext = 'font-semibold text-flag underline-offset-4 hover:underline';
 
 export default function Privacy() {
   const ads = Boolean(adsense.client);
   return (
-    <div className="min-h-screen bg-tar text-paint antialiased">
-      <header className="border-b border-line">
-        <div className="mx-auto flex h-14 max-w-3xl items-center justify-between px-4 sm:px-6">
-          <a href="/" className="font-cond text-xl font-black uppercase italic tracking-tight sm:text-2xl">
-            F1<span className="px-0.5 text-flag">/</span>Contracts
-          </a>
-          <a href="/" className="text-sm font-semibold text-muted hover:text-paint">
-            Back to the grid
-          </a>
-        </div>
-      </header>
-      <main className="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-20">
+    <Page crumbs={[{ name: 'Home', href: '/' }, { name: 'Privacy', href: '/privacy' }]}>
         <h1 className="font-cond text-5xl font-black uppercase italic leading-[0.9] sm:text-7xl">Privacy</h1>
         <p className="mt-4 text-muted">Last updated {formatUpdated(data.updated)}</p>
 
@@ -82,7 +72,6 @@ export default function Privacy() {
             <p>If this policy changes, the date at the top of this page is updated.</p>
           </section>
         </div>
-      </main>
-    </div>
+    </Page>
   );
 }

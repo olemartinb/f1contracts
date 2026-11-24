@@ -1,12 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowUpRight, ChevronDown, Search, X } from 'lucide-react';
-import { data, getTeam, gridDrivers, lastName, type Driver } from '../data';
+import { data, driverPath, getTeam, gridDrivers, lastName, type Driver } from '../data';
+import { cellsFor, YEARS, type Cell } from './cells';
 
 type SortMode = 'contract' | 'team';
 
-const START = data.nextSeason;
-const LAST = Math.max(...gridDrivers.map((d) => d.contractEnd));
-const YEARS = Array.from({ length: LAST - START + 1 }, (_, i) => START + i);
 
 const teamOrder = new Map(data.teams.map((t, i) => [t.id, i]));
 
@@ -24,15 +22,6 @@ function sortDrivers(list: Driver[], mode: SortMode) {
       lastName(a.name).localeCompare(lastName(b.name))
     );
   });
-}
-
-type Cell = 'signed' | 'option' | 'pending' | 'empty';
-
-function cellsFor(d: Driver): Cell[] {
-  const years: Cell[] = YEARS.map((y) =>
-    y <= d.contractEnd ? (d.status === 'unsigned' ? 'pending' : 'signed') : d.optionYear && y <= d.optionYear ? 'option' : 'empty',
-  );
-  return [...years, d.optionBeyond ? 'option' : 'empty'];
 }
 
 /** Segmented bar: one cell per season from next season to the longest deal, plus a "+" cell. */
@@ -196,6 +185,12 @@ function Slot({
           >
             Source: {driver.source.label}
             <ArrowUpRight className="h-4 w-4" aria-hidden />
+          </a>
+          <a
+            href={driverPath(driver)}
+            className="mt-3 ml-4 inline-flex items-center gap-1 text-sm font-semibold underline underline-offset-4"
+          >
+            Full contract page →
           </a>
         </div>
       </details>
