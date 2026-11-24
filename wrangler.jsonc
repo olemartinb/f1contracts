@@ -6,5 +6,9 @@
   "compatibility_date": "2026-11-01",
   "account_id": "2d23111d9e4ae8b5fac821efbfe9a98d",
   "workers_dev": true,
-  "preview_urls": false
+  "preview_urls": false,
+  "routes": [
+    { "pattern": "www.f1-contracts.com", "custom_domain": true },
+    { "pattern": "f1-contracts.com", "custom_domain": true }
+  ]
 }
