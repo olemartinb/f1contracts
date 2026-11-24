@@ -19,6 +19,7 @@ const TYPES = {
   '.txt': 'text/plain; charset=utf-8',
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
+  '.jpg': 'image/jpeg',
   '.ico': 'image/x-icon',
 };
 const SKIP = new Set(['_headers', '_redirects']);

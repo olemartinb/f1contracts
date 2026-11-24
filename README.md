@@ -18,7 +18,9 @@ All data lives in [`src/data/f1data.json`](src/data/f1data.json). For each drive
 
 Bump `updated` whenever you change the data, and add a dated entry to [`src/data/changes.json`](src/data/changes.json) (newest first is not required; the site sorts them). Each entry has a `date` (`YYYY-MM-DD`, or `YYYY-MM` if only the month is known), a `driver` or `team` id, the `text` and a `source`. Changes show on the home page, on `/changes` and on the driver and team pages.
 
-Every driver and team gets its own pre-rendered page (`/drivers/<id>`, `/teams/<id>`), plus `/drivers`, `/teams` and `/changes`, all listed in `sitemap.xml`. At the end of a season, move `currentSeason` and `nextSeason` forward and update the year in the `<title>` and meta tags in `index.html`.
+Every driver and team gets its own pre-rendered page (`/drivers/<id>`, `/teams/<id>`), plus `/drivers`, `/teams` and `/changes`, all listed in `sitemap.xml`. There is also a `/driver-market` page for the next season's market and an RSS feed of changes at `/changes.xml`.
+
+`npm run build` renders a social preview image for each driver and the market page into `public/og/` (`scripts/og-images.mjs`, using Playwright and the Barlow fonts in `scripts/og/`). Where Playwright isn't installed, the committed images are kept. At the end of a season, move `currentSeason` and `nextSeason` forward and update the year in the `<title>` and meta tags in `index.html`.
 
 ## Development
 

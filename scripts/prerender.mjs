@@ -16,7 +16,7 @@ const ssrDir = path.join(root, 'dist-ssr');
 const siteUrl = (process.env.SITE_URL?.trim() || 'https://www.f1-contracts.com').replace(/\/+$/, '');
 const beaconToken = process.env.CF_BEACON_TOKEN?.trim() || undefined;
 
-const { pages, adsense } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href);
+const { pages, adsense, feedItems } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href);
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const jsonLd = (obj) => JSON.stringify(obj).replace(/</g, '\\u003c');
@@ -61,10 +61,10 @@ for (const page of all) {
     `<meta property="og:title" content="${esc(page.title)}" />`,
     `<meta property="og:description" content="${esc(page.description)}" />`,
     `<meta property="og:url" content="${esc(url)}" />`,
-    `<meta property="og:image" content="${esc(siteUrl)}/og.png" />`,
+    `<meta property="og:image" content="${esc(siteUrl)}${page.image ?? '/og.png'}" />`,
     `<meta name="twitter:title" content="${esc(page.title)}" />`,
     `<meta name="twitter:description" content="${esc(page.description)}" />`,
-    `<meta name="twitter:image" content="${esc(siteUrl)}/og.png" />`,
+    `<meta name="twitter:image" content="${esc(siteUrl)}${page.image ?? '/og.png'}" />`,
     `<meta property="article:modified_time" content="${page.lastmod}" />`,
     ...page.jsonLd.map((block) => `<script type="application/ld+json">${jsonLd(block)}</script>`),
     ...shared,
@@ -84,6 +84,18 @@ const urls = all
 await writeFile(
   path.join(dist, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+);
+
+// RSS feed of contract changes
+const items = feedItems(siteUrl)
+  .map(
+    (i) =>
+      `    <item>\n      <title>${esc(i.title)}</title>\n      <link>${esc(i.link)}</link>\n      <guid isPermaLink="false">${esc(i.guid)}</guid>\n      <pubDate>${i.pubDate}</pubDate>\n      <description>${esc(i.description)}</description>\n    </item>`,
+  )
+  .join('\n');
+await writeFile(
+  path.join(dist, 'changes.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n  <channel>\n    <title>F1 Contracts: latest contract changes</title>\n    <link>${siteUrl}/changes</link>\n    <atom:link href="${siteUrl}/changes.xml" rel="self" type="application/rss+xml" />\n    <description>New F1 driver signings, extensions, options and exits, with sources.</description>\n    <language>en</language>\n${items}\n  </channel>\n</rss>\n`,
 );
 
 // ads.txt (Google's certification authority ID is fixed)
