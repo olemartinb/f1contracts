@@ -63,8 +63,8 @@ export default function Privacy() {
           <section>
             <h2>Fonts and hosting</h2>
             <p>
-              Fonts are loaded from Google Fonts, which receives your IP address when the page loads. The site is hosted on
-              Cloudflare, which processes standard request data such as IP addresses to deliver and protect the site.
+              Fonts are served from this site, so no font service receives your IP address. The site is hosted on Cloudflare,
+              which processes standard request data such as IP addresses to deliver and protect the site.
             </p>
           </section>
 

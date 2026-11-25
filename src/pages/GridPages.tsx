@@ -6,6 +6,7 @@ import { Eyebrow, H2, Page, PageTitle } from '../components/Shell';
 import { endingAfter, gridFaq, oocFaq } from '../seo';
 import { Faq } from './DriverPage';
 import { YearLinks } from './MarketPage';
+import { textColor } from '../color';
 
 /** /grid: the confirmed line-up for next season as a table. */
 export function GridPage() {
@@ -46,7 +47,7 @@ export function GridPage() {
                 <tr key={d.id}>
                   <td className="border-l-4 px-4 py-2" style={{ borderLeftColor: team.color }}>
                     <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                      <span className="w-7 text-right font-cond text-lg font-black italic tabular-nums" style={{ color: team.color }}>
+                      <span className="w-7 text-right font-cond text-xl font-black italic tabular-nums" style={{ color: textColor(team.color) }}>
                         {d.number ?? '?'}
                       </span>
                       <a href={href(driverPath(d))} className="font-semibold hover:text-flag">

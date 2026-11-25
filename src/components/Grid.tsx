@@ -3,6 +3,7 @@ import { ArrowUpRight, ChevronDown, Search, X } from 'lucide-react';
 import { data, driverPath, getTeam, gridDrivers, lastName, type Driver } from '../data';
 import { href, noteOf, t } from '../i18n';
 import { cellsFor, YEARS, type Cell } from './cells';
+import { textColor } from '../color';
 
 type SortMode = 'contract' | 'team';
 
@@ -114,7 +115,7 @@ function Slot({
           <span className="flex items-center gap-2 pt-4 sm:gap-3">
             <span
               className="min-w-[2.1ch] text-right font-cond text-[26px] font-black italic leading-none tabular-nums sm:text-4xl"
-              style={{ color: team.color }}
+              style={{ color: textColor(team.color) }}
             >
               {driver.number ?? '?'}
             </span>

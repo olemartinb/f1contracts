@@ -3,6 +3,7 @@ import { driverPath, getTeam, type Driver } from '../data';
 import { href, t } from '../i18n';
 import { Flag, Meter } from './Grid';
 import { cellsFor } from './cells';
+import { textColor } from '../color';
 
 /** A linked row for one driver: number, name, team, season bar and contract end. */
 export function DriverCard({ driver, showTeam = true }: { driver: Driver; showTeam?: boolean }) {
@@ -18,7 +19,7 @@ export function DriverCard({ driver, showTeam = true }: { driver: Driver; showTe
       <span className="flex items-center gap-3">
         <span
           className="w-10 shrink-0 text-right font-cond text-3xl font-black italic leading-none tabular-nums"
-          style={{ color: team.color }}
+          style={{ color: textColor(team.color) }}
         >
           {driver.number ?? '?'}
         </span>
