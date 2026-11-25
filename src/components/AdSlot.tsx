@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { adsense, type AdPlacement } from '../config';
+import { t } from '../i18n';
 
 declare global {
   interface Window {
@@ -25,8 +26,8 @@ export function AdSlot({ placement }: { placement: AdPlacement }) {
   if (!adsense.client || !slot) return null;
 
   return (
-    <aside aria-label="Advertisement" className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
-      <p className="mb-2 text-center font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-muted">Advertisement</p>
+    <aside aria-label={t().advertisement} className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+      <p className="mb-2 text-center font-body text-[10px] font-semibold uppercase tracking-[0.2em] text-muted">{t().advertisement}</p>
       <div className="min-h-[280px] sm:min-h-[250px]">
         <ins
           className="adsbygoogle block"

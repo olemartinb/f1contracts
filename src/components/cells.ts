@@ -14,3 +14,6 @@ export function cellsFor(d: Driver): Cell[] {
   return [...years, d.optionBeyond ? 'option' : 'empty'];
 }
 
+
+/** Seasons after next season that have their own "out of contract after" page. */
+export const YEARS_OUT = YEARS.slice(1);

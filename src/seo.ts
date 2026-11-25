@@ -1,83 +1,14 @@
-// Page titles, descriptions, FAQs and structured data for every pre-rendered page.
-import {
-  changes,
-  contractPhrase,
-  contractShort,
-  data,
-  driverPath,
-  getTeam,
-  gridDrivers,
-  lastName,
-  teamDrivers,
-  teamPath,
-  type Driver,
-  type Team,
-} from './data';
-import { faq as homeFaq, type FaqItem } from './faq';
-
-export const SITE_NAME = 'F1 Contracts';
+// Page titles, descriptions, FAQs and structured data for every pre-rendered page, in the current language.
+import { changes, data, driverPath, getTeam, gridDrivers, lastName, leavingDrivers, teamDrivers, teamPath, type Driver, type Team } from './data';
+import { changeText, href, noteOf, t } from './i18n';
+import { homeFaq, whenEnds, type FaqItem } from './faq';
+import { YEARS_OUT } from './components/cells';
 
 const clip = (s: string, max = 158) => (s.length <= max ? s : `${s.slice(0, max - 1).replace(/\s+\S*$/, '')}…`);
-
-const list = (names: string[]) =>
-  names.length <= 1 ? names.join('') : `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}`;
-
-export function teammatesOf(d: Driver) {
-  return gridDrivers.filter((x) => x.team === d.team && x.id !== d.id);
-}
-
-export function driverFaq(d: Driver): FaqItem[] {
-  const team = getTeam(d.team).name;
-  const mates = teammatesOf(d);
-  const items: FaqItem[] = [];
-  if (d.status === 'leaving') {
-    items.push({
-      q: `Is ${d.name} leaving ${team}?`,
-      a: `Yes. ${d.note}`,
-    });
-  } else {
-    items.push({
-      q: `When does ${d.name}'s contract end?`,
-      a: `${d.name} is under contract with ${team} ${contractPhrase(d)}. ${d.note}`,
-    });
-    items.push({
-      q: `Is ${d.name}'s contract length official?`,
-      a:
-        d.basis === 'official'
-          ? `Yes. The end year has been confirmed by ${team} or by ${lastName(d.name)}.`
-          : `No. ${team} has not published the length, so the end year comes from media reporting (${d.source.label}).`,
-    });
-  }
-  if (mates.length && d.status !== 'leaving') {
-    items.push({
-      q: `Who is ${d.name}'s teammate in ${data.nextSeason}?`,
-      a: `${list(mates.map((m) => `${m.name} (contract ${contractShort(m)})`))}.`,
-    });
-  }
-  if (d.number && d.status !== 'leaving') {
-    items.push({
-      q: `What is ${d.name}'s race number?`,
-      a: `${d.name} raced with number ${d.number} in ${data.currentSeason}.`,
-    });
-  }
-  return items;
-}
-
-export function teamFaq(t: Team): FaqItem[] {
-  const drivers = gridDrivers.filter((d) => d.team === t.id);
-  return [
-    {
-      q: `Who drives for ${t.name} in ${data.nextSeason}?`,
-      a: `${list(drivers.map((d) => d.name))}.`,
-    },
-    ...drivers.map((d) => ({
-      q: `When does ${d.name}'s ${t.name} contract end?`,
-      a: `${d.name} is signed ${contractPhrase(d)}. ${d.basis === 'reported' ? 'The length comes from media reports.' : 'The end year is official.'}`,
-    })),
-  ];
-}
+const titled = (s: string) => `${s} | ${t().meta.brand}`;
 
 export interface PageMeta {
+  /** English (unprefixed) path; the language prefix is added when writing the page. */
   path: string;
   title: string;
   description: string;
@@ -88,6 +19,104 @@ export interface PageMeta {
   image?: string;
 }
 
+export const marketYear = data.nextSeason + 1;
+export const outAfterNext = gridDrivers.filter((d) => d.contractEnd === data.nextSeason && !d.optionBeyond);
+export const signedBeyond = gridDrivers.filter((d) => d.contractEnd > data.nextSeason || d.optionBeyond);
+export const teamsFullyOpen = data.teams.filter((tm) => {
+  const ds = gridDrivers.filter((d) => d.team === tm.id);
+  return ds.length > 0 && ds.every((d) => outAfterNext.includes(d));
+});
+export const endingAfter = (y: number) => gridDrivers.filter((d) => d.contractEnd === y);
+
+export function teammatesOf(d: Driver) {
+  return gridDrivers.filter((x) => x.team === d.team && x.id !== d.id);
+}
+
+// ---------- FAQs ----------
+
+export function driverFaq(d: Driver): FaqItem[] {
+  const tr = t();
+  const f = tr.faq;
+  const team = getTeam(d.team).name;
+  const mates = teammatesOf(d);
+  const items: FaqItem[] = [];
+  if (d.status === 'leaving') {
+    items.push({ q: f.isLeavingQ(d.name, team), a: `${f.yes} ${noteOf(d)}` });
+  } else {
+    items.push(whenEnds(d));
+    items.push({
+      q: f.officialQ(d.name),
+      a: d.basis === 'official' ? f.officialYes(team, lastName(d.name)) : f.officialNo(team, d.source.label),
+    });
+    if (mates.length) {
+      items.push({ q: f.teammateQ(d.name, data.nextSeason), a: `${tr.list(mates.map((m) => f.contractIn(m.name, tr.contractShort(m))))}.` });
+    }
+    if (d.number) items.push({ q: f.numberQ(d.name), a: f.numberA(d.name, d.number, data.currentSeason) });
+  }
+  return items;
+}
+
+export function teamFaq(tm: Team): FaqItem[] {
+  const tr = t();
+  const drivers = gridDrivers.filter((d) => d.team === tm.id);
+  return [
+    { q: tr.faq.whoDrivesQ(tm.name, data.nextSeason), a: `${tr.list(drivers.map((d) => d.name))}.` },
+    ...drivers.map((d) => ({
+      q: tr.faq.teamEndsQ(d.name, tm.name),
+      a: tr.faq.teamEndsA(d.name, tr.contractPhrase(d), d.basis === 'reported'),
+    })),
+  ];
+}
+
+export function marketFaq(): FaqItem[] {
+  const tr = t();
+  const f = tr.faq;
+  const next = data.nextSeason;
+  return [
+    { q: f.outAfterQ(next), a: f.outAfterA(outAfterNext.length, next, tr.list(outAfterNext.map((d) => `${d.name} (${getTeam(d.team).name})`))) },
+    { q: f.seatsQ(marketYear), a: f.seatsA(signedBeyond.length, gridDrivers.length, marketYear, outAfterNext.length) },
+    {
+      q: f.bothQ(next),
+      a: teamsFullyOpen.length ? f.bothA(tr.list(teamsFullyOpen.map((x) => x.name)), next) : f.bothNone(next),
+    },
+    {
+      q: f.signedForQ(marketYear),
+      a: `${tr.list(signedBeyond.map((d) => `${d.name} (${getTeam(d.team).name}, ${tr.contractShort(d)})`))}.`,
+    },
+  ];
+}
+
+export function gridFaq(): FaqItem[] {
+  const tr = t();
+  const f = tr.faq;
+  const y = data.nextSeason;
+  const rookies = gridDrivers.filter((d) => d.rookie);
+  return [
+    { q: f.gridTeamsQ(y), a: f.gridTeamsA(data.teams.length, gridDrivers.length, y) },
+    {
+      q: f.gridRookiesQ(y),
+      a: rookies.length ? `${tr.list(rookies.map((d) => `${d.name} (${getTeam(d.team).name})`))}.` : f.gridRookiesNone(y),
+    },
+    {
+      q: f.leavingQ(data.currentSeason),
+      a: leavingDrivers.length ? leavingDrivers.map((d) => `${d.name}: ${noteOf(d)}`).join(' ') : f.noLeaving(data.currentSeason),
+    },
+  ];
+}
+
+export function oocFaq(y: number): FaqItem[] {
+  const tr = t();
+  const ds = endingAfter(y);
+  return [
+    {
+      q: tr.ooc.q(y),
+      a: ds.length ? `${tr.list(ds.map((d) => `${d.name} (${getTeam(d.team).name}, ${tr.contractShort(d)})`))}.` : tr.ooc.none(y),
+    },
+  ];
+}
+
+// ---------- Structured data ----------
+
 const faqLd = (items: FaqItem[]) => ({
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -97,7 +126,7 @@ const faqLd = (items: FaqItem[]) => ({
 const crumbsLd = (site: string, crumbs: { name: string; path: string }[]) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
-  itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: `${site}${c.path}` })),
+  itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: `${site}${href(c.path)}` })),
 });
 
 const latestChangeFor = (pred: (c: (typeof changes)[number]) => boolean) => {
@@ -105,65 +134,55 @@ const latestChangeFor = (pred: (c: (typeof changes)[number]) => boolean) => {
   return c && c.date.length === 10 && c.date > data.updated ? c.date : data.updated;
 };
 
+// ---------- Page metadata ----------
+
 export function homeMeta(site: string): PageMeta {
+  const m = t().meta;
   return {
     path: '/',
-    title: `F1 Driver Contracts ${data.nextSeason}: When Every Formula 1 Contract Expires`,
-    description: `Every F1 driver contract for ${data.nextSeason} and beyond: Verstappen, Hamilton, Norris, Leclerc, Antonelli and the full grid. Who is out of contract, option years and sources.`,
+    title: m.homeTitle(data.nextSeason),
+    description: clip(m.homeDesc(data.nextSeason)),
     lastmod: data.updated,
     priority: '1.0',
     jsonLd: [
-      {
-        '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        name: SITE_NAME,
-        url: `${site}/`,
-      },
+      { '@context': 'https://schema.org', '@type': 'WebSite', name: m.brand, url: `${site}${href('/')}` },
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: `F1 Driver Contracts ${data.nextSeason}`,
-        url: `${site}/`,
+        name: m.homeTitle(data.nextSeason),
+        url: `${site}${href('/')}`,
         dateModified: data.updated,
-        inLanguage: 'en',
+        inLanguage: t().locale,
         mainEntity: {
           '@type': 'ItemList',
-          name: `F1 driver contracts for ${data.nextSeason}`,
           numberOfItems: gridDrivers.length,
           itemListElement: gridDrivers.map((d, i) => ({
             '@type': 'ListItem',
             position: i + 1,
-            url: `${site}${driverPath(d)}`,
-            name: `${d.name}: ${getTeam(d.team).name}, contract ${contractShort(d)}`,
+            url: `${site}${href(driverPath(d))}`,
+            name: `${d.name}: ${getTeam(d.team).name}, ${t().contractShort(d)}`,
           })),
         },
       },
-      faqLd(homeFaq),
+      faqLd(homeFaq()),
     ],
   };
 }
 
 export function driverMeta(site: string, d: Driver): PageMeta {
+  const tr = t();
   const team = getTeam(d.team);
-  const title =
-    d.status === 'leaving'
-      ? `${d.name} Contract: Leaving ${team.name} After ${d.contractEnd}`
-      : `${d.name} Contract: ${team.name} ${contractShort(d).replace(/^until/, 'Until')}`;
-  const description =
-    d.status === 'leaving'
-      ? clip(`${d.name} leaves ${team.name} after the ${d.contractEnd} season. ${d.note}`)
-      : clip(`${d.name}'s ${team.name} contract runs ${contractPhrase(d)}. ${d.note}`);
   return {
     path: driverPath(d),
-    title: `${title} | ${SITE_NAME}`,
-    description,
+    title: titled(tr.meta.driverTitle(d, team.name)),
+    description: clip(tr.meta.driverDesc(d, team.name, noteOf(d))),
     lastmod: latestChangeFor((c) => c.driver === d.id || c.team === d.team),
     priority: d.status === 'leaving' ? '0.5' : '0.8',
     image: `/og/drivers/${d.id}.jpg`,
     jsonLd: [
       crumbsLd(site, [
-        { name: 'Home', path: '/' },
-        { name: 'Drivers', path: '/drivers' },
+        { name: tr.crumbs.home, path: '/' },
+        { name: tr.crumbs.drivers, path: '/drivers' },
         { name: d.name, path: driverPath(d) },
       ]),
       {
@@ -171,90 +190,160 @@ export function driverMeta(site: string, d: Driver): PageMeta {
         '@type': 'Person',
         name: d.name,
         jobTitle: 'Formula 1 driver',
-        url: `${site}${driverPath(d)}`,
-        memberOf: { '@type': 'SportsTeam', name: team.name, sport: 'Formula 1', url: `${site}${teamPath(team)}` },
+        url: `${site}${href(driverPath(d))}`,
+        memberOf: { '@type': 'SportsTeam', name: team.name, sport: 'Formula 1', url: `${site}${href(teamPath(team))}` },
       },
       faqLd(driverFaq(d)),
     ],
   };
 }
 
-export function teamMeta(site: string, t: Team): PageMeta {
-  const drivers = gridDrivers.filter((d) => d.team === t.id);
+export function teamMeta(site: string, tm: Team): PageMeta {
+  const tr = t();
+  const drivers = gridDrivers.filter((d) => d.team === tm.id);
   return {
-    path: teamPath(t),
-    title: `${t.name} Drivers ${data.nextSeason}: ${list(drivers.map((d) => lastName(d.name)))} Contracts | ${SITE_NAME}`,
-    description: clip(
-      `${t.name}'s ${data.nextSeason} line-up: ${drivers.map((d) => `${d.name} (${contractShort(d)})`).join(', ')}. Sources for every deal.`,
-    ),
-    lastmod: latestChangeFor((c) => c.team === t.id || teamDrivers(t.id).some((d) => d.id === c.driver)),
+    path: teamPath(tm),
+    title: titled(tr.meta.teamTitle(tm.name, data.nextSeason, tr.list(drivers.map((d) => lastName(d.name))))),
+    description: clip(tr.meta.teamDesc(tm.name, data.nextSeason, drivers.map((d) => `${d.name} (${tr.contractShort(d)})`).join(', '))),
+    lastmod: latestChangeFor((c) => c.team === tm.id || teamDrivers(tm.id).some((d) => d.id === c.driver)),
     priority: '0.7',
     jsonLd: [
       crumbsLd(site, [
-        { name: 'Home', path: '/' },
-        { name: 'Teams', path: '/teams' },
-        { name: t.name, path: teamPath(t) },
+        { name: tr.crumbs.home, path: '/' },
+        { name: tr.crumbs.teams, path: '/teams' },
+        { name: tm.name, path: teamPath(tm) },
       ]),
       {
         '@context': 'https://schema.org',
         '@type': 'SportsTeam',
-        name: t.name,
+        name: tm.name,
         sport: 'Formula 1',
-        url: `${site}${teamPath(t)}`,
-        athlete: drivers.map((d) => ({ '@type': 'Person', name: d.name, url: `${site}${driverPath(d)}` })),
+        url: `${site}${href(teamPath(tm))}`,
+        athlete: drivers.map((d) => ({ '@type': 'Person', name: d.name, url: `${site}${href(driverPath(d))}` })),
       },
-      faqLd(teamFaq(t)),
+      faqLd(teamFaq(tm)),
     ],
   };
 }
 
 export function changesMeta(site: string): PageMeta {
+  const tr = t();
   return {
     path: '/changes',
-    title: `F1 Contract News: Latest Signings, Extensions and Exits | ${SITE_NAME}`,
+    title: titled(tr.meta.changesTitle),
     description: clip(
-      `Every F1 driver contract change we track, newest first: ${changes
-        .slice(0, 3)
-        .map((c) => c.text.replace(/\.$/, ''))
-        .join('; ')}.`,
+      tr.meta.changesDesc(
+        changes
+          .slice(0, 3)
+          .map((c) => changeText(c).replace(/\.$/, ''))
+          .join('; '),
+      ),
     ),
     lastmod: changes[0]?.date.length === 10 && changes[0].date > data.updated ? changes[0].date : data.updated,
     priority: '0.7',
     jsonLd: [
       crumbsLd(site, [
-        { name: 'Home', path: '/' },
-        { name: 'Changes', path: '/changes' },
+        { name: tr.crumbs.home, path: '/' },
+        { name: tr.crumbs.changes, path: '/changes' },
       ]),
     ],
   };
 }
 
 export function driversIndexMeta(site: string): PageMeta {
+  const tr = t();
   return {
     path: '/drivers',
-    title: `All F1 Drivers and Their Contracts (${data.nextSeason}) | ${SITE_NAME}`,
-    description: clip(`Contract end dates for all ${gridDrivers.length} Formula 1 drivers on the ${data.nextSeason} grid, A to Z, with options and sources.`),
+    title: titled(tr.meta.driversTitle(data.nextSeason)),
+    description: clip(tr.meta.driversDesc(gridDrivers.length, data.nextSeason)),
     lastmod: data.updated,
     priority: '0.6',
-    jsonLd: [crumbsLd(site, [{ name: 'Home', path: '/' }, { name: 'Drivers', path: '/drivers' }])],
+    jsonLd: [
+      crumbsLd(site, [
+        { name: tr.crumbs.home, path: '/' },
+        { name: tr.crumbs.drivers, path: '/drivers' },
+      ]),
+    ],
   };
 }
 
 export function teamsIndexMeta(site: string): PageMeta {
+  const tr = t();
   return {
     path: '/teams',
-    title: `F1 Teams ${data.nextSeason}: Driver Line-ups and Contracts | ${SITE_NAME}`,
-    description: clip(`All ${data.teams.length} Formula 1 teams for ${data.nextSeason}, their drivers and when each contract ends.`),
+    title: titled(tr.meta.teamsTitle(data.nextSeason)),
+    description: clip(tr.meta.teamsDesc(data.teams.length, data.nextSeason)),
     lastmod: data.updated,
     priority: '0.6',
-    jsonLd: [crumbsLd(site, [{ name: 'Home', path: '/' }, { name: 'Teams', path: '/teams' }])],
+    jsonLd: [
+      crumbsLd(site, [
+        { name: tr.crumbs.home, path: '/' },
+        { name: tr.crumbs.teams, path: '/teams' },
+      ]),
+    ],
+  };
+}
+
+export function marketMeta(site: string): PageMeta {
+  const tr = t();
+  return {
+    path: '/driver-market',
+    title: titled(tr.meta.marketTitle(marketYear, data.nextSeason)),
+    description: clip(tr.meta.marketDesc(outAfterNext.length, data.nextSeason, tr.list(outAfterNext.slice(0, 4).map((d) => d.name)), marketYear)),
+    lastmod: data.updated,
+    priority: '0.9',
+    image: '/og/driver-market.jpg',
+    jsonLd: [
+      crumbsLd(site, [
+        { name: tr.crumbs.home, path: '/' },
+        { name: tr.crumbs.market(marketYear), path: '/driver-market' },
+      ]),
+      faqLd(marketFaq()),
+    ],
+  };
+}
+
+export function gridMeta(site: string): PageMeta {
+  const tr = t();
+  return {
+    path: '/grid',
+    title: titled(tr.meta.gridTitle(data.nextSeason)),
+    description: clip(tr.meta.gridDesc(data.nextSeason, gridDrivers.length)),
+    lastmod: data.updated,
+    priority: '0.9',
+    jsonLd: [
+      crumbsLd(site, [
+        { name: tr.crumbs.home, path: '/' },
+        { name: tr.crumbs.grid(data.nextSeason), path: '/grid' },
+      ]),
+      faqLd(gridFaq()),
+    ],
+  };
+}
+
+export function oocMeta(site: string, y: number): PageMeta {
+  const tr = t();
+  const ds = endingAfter(y);
+  return {
+    path: `/out-of-contract/${y}`,
+    title: titled(tr.meta.oocTitle(y)),
+    description: clip(tr.meta.oocDesc(ds.length, y, tr.list(ds.map((d) => d.name)))),
+    lastmod: data.updated,
+    priority: '0.6',
+    jsonLd: [
+      crumbsLd(site, [
+        { name: tr.crumbs.home, path: '/' },
+        { name: tr.crumbs.outOfContract(y), path: `/out-of-contract/${y}` },
+      ]),
+      faqLd(oocFaq(y)),
+    ],
   };
 }
 
 export function privacyMeta(): PageMeta {
   return {
     path: '/privacy',
-    title: `Privacy | ${SITE_NAME}`,
+    title: 'Privacy | F1 Contracts',
     description: 'How F1 Contracts handles analytics, ads and cookies.',
     lastmod: data.updated,
     priority: '0.2',
@@ -262,54 +351,4 @@ export function privacyMeta(): PageMeta {
   };
 }
 
-export const marketYear = data.nextSeason + 1;
-export const outAfterNext = gridDrivers.filter((d) => d.contractEnd === data.nextSeason && !d.optionBeyond);
-export const signedBeyond = gridDrivers.filter((d) => d.contractEnd > data.nextSeason || d.optionBeyond);
-export const teamsFullyOpen = data.teams.filter((t) => {
-  const ds = gridDrivers.filter((d) => d.team === t.id);
-  return ds.length > 0 && ds.every((d) => outAfterNext.includes(d));
-});
-
-export function marketFaq(): FaqItem[] {
-  const next = data.nextSeason;
-  return [
-    {
-      q: `Which F1 drivers are out of contract after ${next}?`,
-      a: `${outAfterNext.length} drivers: ${list(outAfterNext.map((d) => `${d.name} (${getTeam(d.team).name})`))}.`,
-    },
-    {
-      q: `How many F1 seats are open for ${marketYear}?`,
-      a: `${signedBeyond.length} of ${gridDrivers.length} drivers are already signed for ${marketYear} or later, so up to ${outAfterNext.length} seats could change. Some of those deals have options that a team or driver can take up.`,
-    },
-    {
-      q: `Which teams have both drivers out of contract after ${next}?`,
-      a: teamsFullyOpen.length
-        ? `${list(teamsFullyOpen.map((t) => t.name))}. Both of their current drivers have deals that end with the ${next} season.`
-        : `None. Every team has at least one driver signed beyond ${next}.`,
-    },
-    {
-      q: `Who is already signed for ${marketYear}?`,
-      a: `${list(signedBeyond.map((d) => `${d.name} (${getTeam(d.team).name}, ${contractShort(d)})`))}.`,
-    },
-  ];
-}
-
-export function marketMeta(site: string): PageMeta {
-  return {
-    path: '/driver-market',
-    title: `F1 ${marketYear} Driver Market: Every Driver Out of Contract After ${data.nextSeason} | ${SITE_NAME}`,
-    description: clip(
-      `${outAfterNext.length} F1 drivers are out of contract after ${data.nextSeason}, including ${list(outAfterNext.slice(0, 4).map((d) => d.name))}. Who is free, who is signed for ${marketYear}, and the options to watch.`,
-    ),
-    lastmod: data.updated,
-    priority: '0.9',
-    image: '/og/driver-market.jpg',
-    jsonLd: [
-      crumbsLd(site, [
-        { name: 'Home', path: '/' },
-        { name: `${marketYear} driver market`, path: '/driver-market' },
-      ]),
-      faqLd(marketFaq()),
-    ],
-  };
-}
+export { YEARS_OUT };

@@ -48,13 +48,6 @@ export const getTeam = (id: string): Team => {
 export const gridDrivers = data.drivers.filter((d) => d.status !== 'leaving');
 export const leavingDrivers = data.drivers.filter((d) => d.status === 'leaving');
 
-export const formatUpdated = (iso: string) =>
-  new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC',
-  });
 
 export const lastName = (name: string) => name.split(' ').slice(-1)[0];
 
@@ -75,23 +68,6 @@ export const teamDrivers = (teamId: string) => [
 export const driverPath = (d: Driver) => `/drivers/${d.id}`;
 export const teamPath = (t: Team) => `/teams/${t.id}`;
 
-/** "until the end of the 2027 season", optionally followed by ", with an option for 2028". */
-export function contractPhrase(d: Driver) {
-  if (d.status === 'leaving') return `leaving after ${d.contractEnd}`;
-  const base = `until ${d.optionBeyond ? 'at least ' : ''}the end of the ${d.contractEnd} season`;
-  if (d.optionYear) return `${base}, with an option for ${d.optionYear}`;
-  if (d.optionBeyond) return `${base}, with an option to extend`;
-  return base;
-}
-
-/** Short form for titles: "until 2027 (2028 option)". */
-export function contractShort(d: Driver) {
-  if (d.status === 'leaving') return `leaving after ${d.contractEnd}`;
-  if (d.status === 'unsigned') return `${d.contractEnd} deal not yet signed`;
-  if (d.optionYear) return `until ${d.contractEnd} (${d.optionYear} option)`;
-  if (d.optionBeyond) return `until ${d.contractEnd}+`;
-  return `until ${d.contractEnd}`;
-}
 
 
 export interface Change {
@@ -104,11 +80,6 @@ export interface Change {
 
 export const changes = [...(changesRaw.entries as Change[])].sort((a, b) => b.date.localeCompare(a.date));
 
-export function formatChangeDate(date: string) {
-  const [y, m, d] = date.split('-').map(Number);
-  const dt = new Date(Date.UTC(y, m - 1, d ?? 1, 12));
-  return dt.toLocaleDateString('en-GB', { ...(d ? { day: 'numeric' } : {}), month: 'long', year: 'numeric', timeZone: 'UTC' });
-}
 
 export const changesFor = (driverId: string) =>
   changes.filter((c) => c.driver === driverId || (c.team && c.team === driverById.get(driverId)?.team && c.text.includes(lastName(driverById.get(driverId)!.name))));
