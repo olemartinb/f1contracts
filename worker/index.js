@@ -50,6 +50,13 @@ export default {
       return new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD' } });
     }
 
+    // English-only pages have no language versions; send /es/privacy etc. to the English page.
+    const englishOnly = url.pathname.match(/^\/(es|pt|de|nl)(\/privacy)\/?$/);
+    if (englishOnly) {
+      url.pathname = englishOnly[2];
+      return Response.redirect(url.toString(), 301);
+    }
+
     // Clean URLs: /index.html -> /, /privacy/ and /privacy/index.html -> /privacy
     let pathname = decodeURIComponent(url.pathname);
     const clean = pathname.replace(/\/index\.html$/, '/').replace(/(.)\/$/, '$1');
