@@ -13,10 +13,12 @@ const SECURITY_HEADERS = {
 };
 
 const decoded = new Map();
+const encoder = new TextEncoder();
 function bytes(path) {
   let b = decoded.get(path);
   if (!b) {
-    b = Uint8Array.from(atob(assets[path].b64), (c) => c.charCodeAt(0));
+    const asset = assets[path];
+    b = asset.text !== undefined ? encoder.encode(asset.text) : Uint8Array.from(atob(asset.b64), (c) => c.charCodeAt(0));
     decoded.set(path, b);
   }
   return b;

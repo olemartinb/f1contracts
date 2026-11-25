@@ -16,7 +16,7 @@ const ssrDir = path.join(root, 'dist-ssr');
 const siteUrl = (process.env.SITE_URL?.trim() || 'https://www.f1-contracts.com').replace(/\/+$/, '');
 const beaconToken = process.env.CF_BEACON_TOKEN?.trim() || undefined;
 
-const { pages, adsense, feedItems } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href);
+const { pages, adsense, feedItems, LANGS, htmlLang, missing } = await import(pathToFileURL(path.join(ssrDir, 'entry-server.js')).href);
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const jsonLd = (obj) => JSON.stringify(obj).replace(/</g, '\\u003c');
@@ -49,18 +49,27 @@ if (adsense.client) {
 }
 
 const all = pages(siteUrl);
+const prefixed = (code, p) => (code === 'en' ? p : `/${code}${p === '/' ? '' : p}`);
 const seen = new Set();
 for (const page of all) {
-  if (seen.has(page.path)) throw new Error(`Duplicate page path ${page.path}`);
-  seen.add(page.path);
-  const url = `${siteUrl}${page.path}`;
+  if (seen.has(page.url)) throw new Error(`Duplicate page path ${page.url}`);
+  seen.add(page.url);
+  const url = `${siteUrl}${page.url}`;
+  const alternates = page.translated
+    ? [
+        ...LANGS.map((l) => `<link rel="alternate" hreflang="${l.code}" href="${esc(siteUrl + prefixed(l.code, page.path))}" />`),
+        `<link rel="alternate" hreflang="x-default" href="${esc(siteUrl + page.path)}" />`,
+      ]
+    : [];
   const head = [
     `<title>${esc(page.title)}</title>`,
     `<meta name="description" content="${esc(page.description)}" />`,
     `<link rel="canonical" href="${esc(url)}" />`,
+    ...alternates,
     `<meta property="og:title" content="${esc(page.title)}" />`,
     `<meta property="og:description" content="${esc(page.description)}" />`,
     `<meta property="og:url" content="${esc(url)}" />`,
+    `<meta property="og:locale" content="${htmlLang(page.lang).replace('-', '_')}" />`,
     `<meta property="og:image" content="${esc(siteUrl)}${page.image ?? '/og.png'}" />`,
     `<meta name="twitter:title" content="${esc(page.title)}" />`,
     `<meta name="twitter:description" content="${esc(page.description)}" />`,
@@ -69,17 +78,23 @@ for (const page of all) {
     ...page.jsonLd.map((block) => `<script type="application/ld+json">${jsonLd(block)}</script>`),
     ...shared,
   ];
-  let out = base.replace('<!--seo-head-->', head.join('\n    ')).replace('<!--app-html-->', page.html);
+  let out = base
+    .replace(/<html lang="[^"]*">/, `<html lang="${htmlLang(page.lang)}" data-lang="${page.lang}">`)
+    .replace('<!--seo-head-->', head.join('\n    '))
+    .replace('<!--app-html-->', page.html);
   if (!page.hydrate) out = out.replace(appScript, '');
-  const file = page.path === '/' ? path.join(dist, 'index.html') : path.join(dist, page.path, 'index.html');
+  const file = page.url === '/' ? path.join(dist, 'index.html') : path.join(dist, page.url, 'index.html');
   await mkdir(path.dirname(file), { recursive: true });
   await writeFile(file, out);
 }
 
+const gaps = missing();
+if (gaps.length) console.warn(`Missing translations (English text used):\n  ${gaps.join('\n  ')}`);
+
 // robots.txt and sitemap.xml
 await writeFile(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml\n`);
 const urls = all
-  .map((p) => `  <url>\n    <loc>${siteUrl}${p.path}</loc>\n    <lastmod>${p.lastmod}</lastmod>\n    <priority>${p.priority}</priority>\n  </url>`)
+  .map((p) => `  <url>\n    <loc>${siteUrl}${p.url}</loc>\n    <lastmod>${p.lastmod}</lastmod>\n    <priority>${p.priority}</priority>\n  </url>`)
   .join('\n');
 await writeFile(
   path.join(dist, 'sitemap.xml'),
@@ -106,7 +121,7 @@ if (adsense.client) {
 await rm(ssrDir, { recursive: true, force: true });
 
 console.log(
-  `Pre-rendered ${all.length} pages for ${siteUrl}` +
+  `Pre-rendered ${all.length} pages in ${LANGS.length} languages for ${siteUrl}` +
     (beaconToken ? ', Cloudflare Web Analytics token set' : '') +
     (adsense.client ? `, AdSense on (${adsense.client})` : ', AdSense off'),
 );

@@ -1,8 +1,9 @@
 import { ArrowUpRight, Plus } from 'lucide-react';
-import { changes, data, driverById, driverPath, formatChangeDate, formatUpdated, getTeam, gridDrivers, leavingDrivers, lastName, teamById, teamPath } from './data';
+import { changes, data, driverById, driverPath, getTeam, gridDrivers, lastName, leavingDrivers, teamById, teamPath } from './data';
+import { changeText, formatChangeDate, formatDate, href, noteOf, t } from './i18n';
 import { SiteFooter, SiteHeader } from './components/Shell';
 import { Flag, Grid } from './components/Grid';
-import { faq } from './faq';
+import { homeFaq } from './faq';
 import { AdSlot } from './components/AdSlot';
 
 const next = data.nextSeason;
@@ -34,13 +35,15 @@ function Stat({ value, label }: { value: React.ReactNode; label: string }) {
 }
 
 export default function App() {
+  const tr = t();
+  const h = tr.home;
   return (
     <div id="top" className="min-h-screen bg-tar text-paint antialiased">
       <a
         href="#grid"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-flag focus:px-3 focus:py-2 focus:text-tar"
       >
-        Skip to the grid
+        {h.skip}
       </a>
 
       <SiteHeader />
@@ -50,31 +53,27 @@ export default function App() {
         <section className="tarmac">
           <div className="mx-auto max-w-6xl px-4 pb-14 pt-12 sm:px-6 sm:pb-20 sm:pt-20">
             <p className="mb-5 font-body text-sm text-muted">
-              Updated <time dateTime={data.updated}>{formatUpdated(data.updated)}</time>
+              {h.updated} <time dateTime={data.updated}>{formatDate(data.updated)}</time>
             </p>
-            <h1 className="font-cond text-[13vw] font-black uppercase italic leading-[0.85] tracking-tight sm:text-8xl lg:text-[124px]">
-              F1 driver contracts
-              <span className="outline-text block">{next} and beyond</span>
+            <h1 className="text-balance break-words font-cond text-[12vw] font-black uppercase italic leading-[0.85] tracking-tight sm:text-8xl lg:text-[124px]">
+              {h.h1}
+              <span className="outline-text block">{h.h1b(next)}</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
-              The whole Formula&nbsp;1 grid, lined up by how long each driver is signed for. Longest deal on pole. Tap a
-              driver for the details and the source.
-            </p>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">{h.lede}</p>
 
             <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4">
-              <Stat value={<>{signed}<span className="text-muted">/{gridDrivers.length}</span></>} label={`${next} seats signed`} />
-              <Stat value={expiringNext.length} label={`Out of contract after ${next}`} />
-              <Stat value={longest} label={`Longest deals: ${longestNames.join(' & ')}`} />
-              <Stat value={officialCount} label="End dates officially confirmed" />
+              <Stat value={<>{signed}<span className="text-muted">/{gridDrivers.length}</span></>} label={h.statSigned(next)} />
+              <Stat value={expiringNext.length} label={h.statOut(next)} />
+              <Stat value={longest} label={h.statLongest(longestNames.join(' & '))} />
+              <Stat value={officialCount} label={h.statOfficial} />
             </dl>
           </div>
         </section>
 
         {/* Grid */}
         <section className="mx-auto max-w-6xl px-4 pb-20 pt-4 sm:px-6 sm:pb-28" aria-labelledby="grid">
-          <SectionHeading id="grid" eyebrow="The grid" title={`The ${next} grid, by contract`}>
-            Each box shows the seasons a driver is signed for, from {next} on. Teams often keep contract length private, so
-            “Reported” means the end year comes from media reports.
+          <SectionHeading id="grid" eyebrow={h.gridEyebrow} title={h.gridTitle(next)}>
+            {h.gridLede(next)}
           </SectionHeading>
           <Grid />
         </section>
@@ -84,10 +83,10 @@ export default function App() {
         {/* Market */}
         <section className="border-y border-line bg-tar2" aria-labelledby="market">
           <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-            <SectionHeading id="market" eyebrow="Next silly season" title={`${expiringNext.length} drivers out of contract after ${next}`}>
-              These deals end with the {next} season, which makes the {next + 1} driver market one of the biggest in years.{' '}
-              <a href="/driver-market" className="font-semibold text-flag underline-offset-4 hover:underline">
-                See the full {next + 1} driver market →
+            <SectionHeading id="market" eyebrow={h.marketEyebrow} title={h.marketTitle(expiringNext.length, next)}>
+              {h.marketLede(next)}{' '}
+              <a href={href('/driver-market')} className="font-semibold text-flag underline-offset-4 hover:underline">
+                {h.marketLink(next + 1)}
               </a>
             </SectionHeading>
             <ul className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -99,15 +98,15 @@ export default function App() {
                       {d.number ?? '?'}
                     </span>
                     <div className="min-w-0 flex-1">
-                      <a href={driverPath(d)} className="block truncate font-cond text-lg font-extrabold uppercase leading-tight hover:text-flag">{d.name}</a>
+                      <a href={href(driverPath(d))} className="block truncate font-cond text-lg font-extrabold uppercase leading-tight hover:text-flag">
+                        {d.name}
+                      </a>
                       <p className="text-sm text-muted">{team.name}</p>
                     </div>
                     {d.optionYear ? (
-                      <span className="whitespace-nowrap text-xs font-semibold uppercase tracking-wider text-muted">
-                        Option {d.optionYear}
-                      </span>
+                      <span className="whitespace-nowrap text-xs font-semibold uppercase tracking-wider text-muted">{tr.option(d.optionYear)}</span>
                     ) : d.status === 'unsigned' ? (
-                      <Flag>Unsigned</Flag>
+                      <Flag>{tr.unsigned}</Flag>
                     ) : null}
                   </li>
                 );
@@ -116,15 +115,17 @@ export default function App() {
 
             {leavingDrivers.length > 0 && (
               <div className="mt-14">
-                <h3 className="mb-4 font-cond text-2xl font-black uppercase italic">Leaving after {data.currentSeason}</h3>
+                <h3 className="mb-4 font-cond text-2xl font-black uppercase italic">{h.leavingAfter(data.currentSeason)}</h3>
                 <ul className="space-y-3">
                   {leavingDrivers.map((d) => (
                     <li key={d.id} className="flex flex-col gap-1 border-2 border-dashed border-line p-4 sm:flex-row sm:items-center sm:gap-4">
                       <p className="font-cond text-lg font-extrabold uppercase">
-                        <a href={driverPath(d)} className="hover:text-flag">{d.name}</a>{' '}
+                        <a href={href(driverPath(d))} className="hover:text-flag">
+                          {d.name}
+                        </a>{' '}
                         <span className="font-body text-sm font-normal normal-case text-muted">· {getTeam(d.team).name}</span>
                       </p>
-                      <p className="text-sm text-muted sm:flex-1">{d.note}</p>
+                      <p className="text-sm text-muted sm:flex-1">{noteOf(d)}</p>
                       <a href={d.source.url} target="_blank" rel="noopener" className="inline-flex items-center gap-0.5 text-sm font-semibold text-flag hover:underline">
                         {d.source.label} <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
                       </a>
@@ -138,11 +139,12 @@ export default function App() {
 
         {/* Latest changes */}
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20" aria-labelledby="latest">
-          <SectionHeading id="latest" eyebrow="Contract news" title="Latest changes" />
+          <SectionHeading id="latest" eyebrow={h.latestEyebrow} title={h.latestTitle} />
           <ol className="grid gap-3 sm:grid-cols-2">
             {changes.slice(0, 4).map((c) => {
               const driver = c.driver ? driverById.get(c.driver) : undefined;
               const team = teamById.get(c.team ?? driver?.team ?? '');
+              const text = changeText(c);
               return (
                 <li key={c.date + c.text} className="relative border-2 border-line bg-tar2 p-4 pl-5">
                   <span className="absolute inset-y-0 left-0 w-1.5" style={{ background: team?.color }} aria-hidden />
@@ -151,11 +153,15 @@ export default function App() {
                   </p>
                   <p className="mt-1.5 leading-relaxed">
                     {driver ? (
-                      <a href={driverPath(driver)} className="hover:text-flag">{c.text}</a>
+                      <a href={href(driverPath(driver))} className="hover:text-flag">
+                        {text}
+                      </a>
                     ) : team ? (
-                      <a href={teamPath(team)} className="hover:text-flag">{c.text}</a>
+                      <a href={href(teamPath(team))} className="hover:text-flag">
+                        {text}
+                      </a>
                     ) : (
-                      c.text
+                      text
                     )}
                   </p>
                 </li>
@@ -163,7 +169,9 @@ export default function App() {
             })}
           </ol>
           <p className="mt-6">
-            <a href="/changes" className="font-semibold text-flag underline-offset-4 hover:underline">All contract changes →</a>
+            <a href={href('/changes')} className="font-semibold text-flag underline-offset-4 hover:underline">
+              {h.allChanges}
+            </a>
           </p>
         </section>
 
@@ -171,8 +179,8 @@ export default function App() {
 
         {/* Line-ups */}
         <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24" aria-labelledby="teams">
-          <SectionHeading id="teams" eyebrow={`${next} line-ups`} title="Team by team">
-            All {data.teams.length} teams and their drivers for next season, with the year each contract ends.
+          <SectionHeading id="teams" eyebrow={h.lineupsEyebrow(next)} title={h.lineupsTitle}>
+            {h.lineupsLede(data.teams.length)}
           </SectionHeading>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {data.teams.map((team) => {
@@ -182,7 +190,9 @@ export default function App() {
                   <div className="h-1.5" style={{ background: team.color }} aria-hidden />
                   <div className="p-5">
                     <h3 className="font-cond text-2xl font-black uppercase italic leading-none">
-                      <a href={teamPath(team)} className="hover:text-flag">{team.name}</a>
+                      <a href={href(teamPath(team))} className="hover:text-flag">
+                        {team.name}
+                      </a>
                     </h3>
                     <ul className="mt-4 space-y-2.5">
                       {drivers.map((d) => (
@@ -191,12 +201,14 @@ export default function App() {
                             <span className="w-7 shrink-0 text-right font-cond text-lg font-black italic tabular-nums" style={{ color: team.color }}>
                               {d.number ?? '?'}
                             </span>
-                            <a href={driverPath(d)} className="truncate hover:text-flag">{d.name}</a>
-                            {d.rookie && <Flag>Rookie</Flag>}
+                            <a href={href(driverPath(d))} className="truncate hover:text-flag">
+                              {d.name}
+                            </a>
+                            {d.rookie && <Flag>{tr.rookie}</Flag>}
                           </span>
                           <span className="flex items-center gap-0.5 font-cond text-xl font-black italic tabular-nums">
-                            {d.status === 'unsigned' ? <span className="text-flag">TBC</span> : d.contractEnd}
-                            {(d.optionYear || d.optionBeyond) && <Plus className="h-3.5 w-3.5 text-flag" aria-label="with option" />}
+                            {d.status === 'unsigned' ? <span className="text-flag">{tr.tbc}</span> : d.contractEnd}
+                            {(d.optionYear || d.optionBeyond) && <Plus className="h-3.5 w-3.5 text-flag" aria-label={tr.withOption} />}
                           </span>
                         </li>
                       ))}
@@ -206,15 +218,15 @@ export default function App() {
               );
             })}
           </div>
-          <p className="mt-4 text-sm text-muted">Race numbers are from the {data.currentSeason} season. A “+” means the deal includes an option.</p>
+          <p className="mt-4 text-sm text-muted">{h.numbersNote(data.currentSeason)}</p>
         </section>
 
         {/* FAQ */}
         <section className="border-t border-line" aria-labelledby="faq">
           <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-24">
-            <SectionHeading id="faq" eyebrow="FAQ" title="Contract questions" />
+            <SectionHeading id="faq" eyebrow={h.faqEyebrow} title={h.faqTitle} />
             <div className="divide-y divide-line border-y border-line">
-              {faq.map((item) => (
+              {homeFaq().map((item) => (
                 <details key={item.q} className="group py-5">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
                     <h3 className="text-lg">{item.q}</h3>

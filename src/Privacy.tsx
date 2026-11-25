@@ -1,4 +1,5 @@
-import { data, formatUpdated } from './data';
+import { data } from './data';
+import { formatDate } from './i18n';
 import { adsense } from './config';
 import { Page } from './components/Shell';
 
@@ -9,7 +10,7 @@ export default function Privacy() {
   return (
     <Page crumbs={[{ name: 'Home', href: '/' }, { name: 'Privacy', href: '/privacy' }]}>
         <h1 className="font-cond text-5xl font-black uppercase italic leading-[0.9] sm:text-7xl">Privacy</h1>
-        <p className="mt-4 text-muted">Last updated {formatUpdated(data.updated)}</p>
+        <p className="mt-4 text-muted">Last updated {formatDate(data.updated)}</p>
 
         <div className="mt-10 space-y-8 leading-relaxed [&_h2]:mb-2 [&_h2]:font-cond [&_h2]:text-2xl [&_h2]:font-black [&_h2]:uppercase [&_h2]:italic [&_p]:text-muted">
           <section>
