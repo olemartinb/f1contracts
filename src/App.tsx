@@ -5,6 +5,7 @@ import { SiteFooter, SiteHeader } from './components/Shell';
 import { Flag, Grid } from './components/Grid';
 import { homeFaq } from './faq';
 import { AdSlot } from './components/AdSlot';
+import { textColor } from './color';
 
 const next = data.nextSeason;
 const signed = gridDrivers.filter((d) => d.status === 'signed').length;
@@ -94,7 +95,7 @@ export default function App() {
                 const team = getTeam(d.team);
                 return (
                   <li key={d.id} className="flex items-center gap-3 border-b border-line py-3">
-                    <span className="w-8 text-right font-cond text-2xl font-black italic tabular-nums" style={{ color: team.color }}>
+                    <span className="w-8 text-right font-cond text-2xl font-black italic tabular-nums" style={{ color: textColor(team.color) }}>
                       {d.number ?? '?'}
                     </span>
                     <div className="min-w-0 flex-1">
@@ -198,7 +199,7 @@ export default function App() {
                       {drivers.map((d) => (
                         <li key={d.id} className="flex items-center justify-between gap-3">
                           <span className="flex min-w-0 items-center gap-2.5">
-                            <span className="w-7 shrink-0 text-right font-cond text-lg font-black italic tabular-nums" style={{ color: team.color }}>
+                            <span className="w-7 shrink-0 text-right font-cond text-xl font-black italic tabular-nums" style={{ color: textColor(team.color) }}>
                               {d.number ?? '?'}
                             </span>
                             <a href={href(driverPath(d))} className="truncate hover:text-flag">

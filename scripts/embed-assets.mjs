@@ -21,6 +21,7 @@ const TYPES = {
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.ico': 'image/x-icon',
+  '.woff2': 'font/woff2',
 };
 const SKIP = new Set(['_headers', '_redirects']);
 

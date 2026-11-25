@@ -5,7 +5,7 @@
 //   CF_BEACON_TOKEN  Cloudflare Web Analytics token for manual setup. Not needed when the zone uses
 //                    automatic setup, which is the case for f1-contracts.com.
 // AdSense is configured in src/config.ts.
-import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, rm, readdir } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import path from 'node:path';
 
@@ -37,6 +37,12 @@ const base = template
 const appScript = /\s*<script type="module"[^>]*><\/script>/g;
 
 const shared = [];
+// Preload the two fonts every page shows first (headline and body text).
+const assetFiles = await readdir(path.join(dist, 'assets'));
+for (const prefix of ['barlow-condensed-latin-900-italic', 'barlow-latin-400-normal']) {
+  const file = assetFiles.find((f) => f.startsWith(prefix) && f.endsWith('.woff2'));
+  if (file) shared.push(`<link rel="preload" href="/assets/${file}" as="font" type="font/woff2" crossorigin />`);
+}
 if (beaconToken) {
   shared.push(
     `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${jsonLd({ token: beaconToken })}'></script>`,
