@@ -58,7 +58,8 @@ function pageDefs(): PageDef[] {
 function renderIn(lang: Lang, def: PageDef, site: string, translated: boolean): RenderedPage {
   setLang(lang);
   const meta = def.meta(site);
-  setPath(meta.path);
+  // The language switcher links to this page in each language; English-only pages link to each language's home page.
+  setPath(translated ? meta.path : '/');
   return { ...meta, lang, url: href(meta.path), html: html(def.node()), hydrate: !!def.hydrate, translated };
 }
 
