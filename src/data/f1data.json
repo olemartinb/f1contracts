@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-23",
+  "updated": "2026-11-27",
   "currentSeason": 2026,
   "nextSeason": 2027,
   "teams": [
@@ -241,10 +241,10 @@
       "nationality": "GBR",
       "team": "haas",
       "contractEnd": 2027,
-      "basis": "reported",
-      "status": "unsigned",
-      "note": "Ayao Komatsu confirmed him for 2027 in Las Vegas, but the contract is not yet signed.",
-      "source": { "label": "RaceFans", "url": "https://www.racefans.net/2026/11/19/people-in-the-team-are-asking-why-my-2027-deal-hasnt-been-announced-bearman/" }
+      "basis": "official",
+      "status": "signed",
+      "note": "Haas confirmed his new contract for 2027 ahead of the Qatar Grand Prix, completing the 2027 grid. Reported as a one-year deal.",
+      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/bearman-to-continue-with-haas-for-2027-as-he-completes-next-years-grid.dRq9fWh9OGjhXuShgGnqE" }
     },
     {
       "id": "rafael-camara",
