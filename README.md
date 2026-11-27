@@ -22,6 +22,7 @@ All data lives in [`src/data/f1data.json`](src/data/f1data.json). For each drive
 | `status` | `signed`, `unsigned` (team confirmed but no contract yet) or `leaving` (not on next season's grid) |
 | `rookie` | `true` for a driver's first season |
 | `source` | Link shown next to the note. Always add one. |
+| `updated` | Date the entry was last changed or re-checked (`YYYY-MM-DD`). Shown as "Updated …" on the site. |
 
 Bump `updated` whenever you change the data, and add a dated entry to [`src/data/changes.json`](src/data/changes.json) (newest first is not required; the site sorts them). Each entry has a `date` (`YYYY-MM-DD`, or `YYYY-MM` if only the month is known), a `driver` or `team` id, the `text` and a `source`. Changes show on the home page, on `/changes` and on the driver and team pages.
 

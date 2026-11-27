@@ -52,6 +52,7 @@ const nl: Dict = {
   details: 'Details',
   closeDetails: (name: string) => `Details van ${name} sluiten`,
   fullPage: 'Volledige contractpagina →',
+  updatedOn: (date: string) => `Bijgewerkt op ${date}`,
   advertisement: 'Advertentie',
 
   nav: { grid: 'Grid', market: 'Rijdersmarkt', teams: 'Teams', changes: 'Nieuws', faq: 'FAQ' },
@@ -82,6 +83,11 @@ const nl: Dict = {
   },
 
   gridUi: {
+    viewLabel: 'Weergave',
+    viewGrid: 'Grid',
+    viewList: 'Lijst',
+    listHeading: (y: number) => `Contract tot ${y}`,
+    driversCount: (n: number) => `${n} coureur${n === 1 ? '' : 's'}`,
     order: 'Grid sorteren',
     byContract: 'Op contractduur',
     byTeam: 'Op team',
@@ -182,6 +188,7 @@ const nl: Dict = {
     factNumber: (y: number) => `Nummer (${y})`,
     factOption: 'Optie',
     factLength: 'Looptijd',
+    factUpdated: 'Bijgewerkt',
     optionNone: 'Niet bekend',
     optionYes: 'Ja',
     official: 'Officieel',

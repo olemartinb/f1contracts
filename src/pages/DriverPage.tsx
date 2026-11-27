@@ -1,6 +1,6 @@
 import { ArrowUpRight, Plus } from 'lucide-react';
-import { changesFor, data, driverPath, getTeam, gridDrivers, teamPath, type Change, type Driver } from '../data';
-import { changeText, formatChangeDate, href, noteOf, t } from '../i18n';
+import { changesFor, data, driverPath, driverUpdated, getTeam, gridDrivers, teamPath, type Change, type Driver } from '../data';
+import { changeText, formatChangeDate, formatDate, href, noteOf, t } from '../i18n';
 import { Flag, Meter } from '../components/Grid';
 import { cellsFor } from '../components/cells';
 import { DriverCard } from '../components/DriverCard';
@@ -93,6 +93,9 @@ export default function DriverPage({ driver: d }: { driver: Driver }) {
         </div>
         <p className="mt-4 text-lg leading-relaxed">
           {leaving ? dr.leaves(d.name, team.name, d.contractEnd) : dr.underContract(d.name, team.name, tr.contractPhrase(d))}
+        </p>
+        <p className="mt-2 text-sm text-muted">
+          <time dateTime={driverUpdated(d)}>{tr.updatedOn(formatDate(driverUpdated(d)))}</time>
         </p>
         {!leaving && (
           <div className="mt-5">

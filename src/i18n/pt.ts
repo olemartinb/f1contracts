@@ -52,6 +52,7 @@ const pt: Dict = {
   details: 'Detalhes',
   closeDetails: (name: string) => `Fechar detalhes de ${name}`,
   fullPage: 'Página completa do contrato →',
+  updatedOn: (date: string) => `Atualizado em ${date}`,
   advertisement: 'Publicidade',
 
   nav: { grid: 'Grid', market: 'Mercado', teams: 'Equipes', changes: 'Novidades', faq: 'Perguntas' },
@@ -82,6 +83,11 @@ const pt: Dict = {
   },
 
   gridUi: {
+    viewLabel: 'Visualização',
+    viewGrid: 'Grid',
+    viewList: 'Lista',
+    listHeading: (y: number) => `Contrato até ${y}`,
+    driversCount: (n: number) => `${n} piloto${n === 1 ? '' : 's'}`,
     order: 'Ordenar o grid',
     byContract: 'Por duração',
     byTeam: 'Por equipe',
@@ -182,6 +188,7 @@ const pt: Dict = {
     factNumber: (y: number) => `Número (${y})`,
     factOption: 'Opção',
     factLength: 'Duração',
+    factUpdated: 'Atualizado',
     optionNone: 'Nenhuma conhecida',
     optionYes: 'Sim',
     official: 'Oficial',

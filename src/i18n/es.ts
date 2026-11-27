@@ -52,6 +52,7 @@ const es: Dict = {
   details: 'Detalles',
   closeDetails: (name: string) => `Cerrar detalles de ${name}`,
   fullPage: 'Ficha completa del contrato →',
+  updatedOn: (date: string) => `Actualizado: ${date}`,
   advertisement: 'Publicidad',
 
   nav: { grid: 'Parrilla', market: 'Mercado', teams: 'Equipos', changes: 'Novedades', faq: 'Preguntas' },
@@ -82,6 +83,11 @@ const es: Dict = {
   },
 
   gridUi: {
+    viewLabel: 'Vista',
+    viewGrid: 'Parrilla',
+    viewList: 'Lista',
+    listHeading: (y: number) => `Contrato hasta ${y}`,
+    driversCount: (n: number) => `${n} piloto${n === 1 ? '' : 's'}`,
     order: 'Ordenar la parrilla',
     byContract: 'Por duración',
     byTeam: 'Por equipo',
@@ -182,6 +188,7 @@ const es: Dict = {
     factNumber: (y: number) => `Dorsal (${y})`,
     factOption: 'Opción',
     factLength: 'Duración',
+    factUpdated: 'Actualizado',
     optionNone: 'No consta',
     optionYes: 'Sí',
     official: 'Oficial',

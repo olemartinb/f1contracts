@@ -52,6 +52,7 @@ const de: Dict = {
   details: 'Details',
   closeDetails: (name: string) => `Details zu ${name} schließen`,
   fullPage: 'Ganze Vertragsseite →',
+  updatedOn: (date: string) => `Aktualisiert am ${date}`,
   advertisement: 'Anzeige',
 
   nav: { grid: 'Startfeld', market: 'Fahrermarkt', teams: 'Teams', changes: 'News', faq: 'FAQ' },
@@ -82,6 +83,11 @@ const de: Dict = {
   },
 
   gridUi: {
+    viewLabel: 'Ansicht',
+    viewGrid: 'Startfeld',
+    viewList: 'Liste',
+    listHeading: (y: number) => `Vertrag bis ${y}`,
+    driversCount: (n: number) => `${n} Fahrer`,
     order: 'Startfeld sortieren',
     byContract: 'Nach Vertragsdauer',
     byTeam: 'Nach Team',
@@ -182,6 +188,7 @@ const de: Dict = {
     factNumber: (y: number) => `Nummer (${y})`,
     factOption: 'Option',
     factLength: 'Laufzeit',
+    factUpdated: 'Aktualisiert',
     optionNone: 'Keine bekannt',
     optionYes: 'Ja',
     official: 'Offiziell',

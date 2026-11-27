@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ArrowUpRight, ChevronDown, Search, X } from 'lucide-react';
-import { data, driverPath, getTeam, gridDrivers, lastName, type Driver } from '../data';
-import { href, noteOf, t } from '../i18n';
+import { data, driverPath, driverUpdated, getTeam, gridDrivers, lastName, type Driver } from '../data';
+import { formatShortDate, href, noteOf, t } from '../i18n';
 import { cellsFor, YEARS, type Cell } from './cells';
 import { textColor } from '../color';
 
 type SortMode = 'contract' | 'team';
+type ViewMode = 'grid' | 'list';
+const VIEW_KEY = 'f1c-view';
 
 
 const teamOrder = new Map(data.teams.map((t, i) => [t.id, i]));
@@ -180,6 +182,7 @@ function Slot({
             {tr.source}: {driver.source.label}
             <ArrowUpRight className="h-4 w-4" aria-hidden />
           </a>
+          <span className="ml-4 mt-3 inline-block text-sm text-muted">{tr.updatedOn(formatShortDate(driverUpdated(driver)))}</span>
           <a
             href={href(driverPath(driver))}
             className="mt-3 ml-4 inline-flex items-center gap-1 text-sm font-semibold underline underline-offset-4"
@@ -197,7 +200,25 @@ export function Grid() {
   const [team, setTeam] = useState('all');
   const [query, setQuery] = useState('');
   const [openId, setOpenId] = useState<string | null>(null);
+  const [view, setView] = useState<ViewMode>('grid');
   const g = t().gridUi;
+
+  // Remember the chosen view on this device (read after hydration so the pre-rendered grid matches).
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(VIEW_KEY) === 'list') setView('list');
+    } catch {
+      // Storage unavailable (private mode etc.); keep the default.
+    }
+  }, []);
+  const chooseView = (v: ViewMode) => {
+    setView(v);
+    try {
+      localStorage.setItem(VIEW_KEY, v);
+    } catch {
+      // Ignore.
+    }
+  };
 
   const rows = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -230,6 +251,22 @@ export function Grid() {
   return (
     <div>
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-wrap gap-3">
+        <div className="inline-flex self-start border-2 border-line p-1" role="group" aria-label={g.viewLabel}>
+          {(['grid', 'list'] as const).map((v) => (
+            <button
+              key={v}
+              type="button"
+              onClick={() => chooseView(v)}
+              aria-pressed={view === v}
+              className={`px-3 py-1.5 font-cond text-base font-extrabold uppercase italic tracking-wide transition ${
+                view === v ? 'bg-paint text-tar' : 'text-muted hover:text-paint'
+              }`}
+            >
+              {v === 'grid' ? g.viewGrid : g.viewList}
+            </button>
+          ))}
+        </div>
         <div className="inline-flex self-start border-2 border-line p-1" role="group" aria-label={g.order}>
           {(['contract', 'team'] as const).map((m) => (
             <button
@@ -244,6 +281,7 @@ export function Grid() {
               {m === 'contract' ? g.byContract : g.byTeam}
             </button>
           ))}
+        </div>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">
           <label className="relative block">
@@ -278,8 +316,11 @@ export function Grid() {
         </div>
       </div>
 
-      <Legend />
+      {view === 'grid' && <Legend />}
 
+      {view === 'list' ? (
+        <ContractList rows={rows} mode={mode} />
+      ) : (
       <div className="start-line mt-8 pt-10">
         <ol className="grid-slots" aria-label={g.listLabel}>
           {rows.map((d, i) => (
@@ -295,6 +336,68 @@ export function Grid() {
         </ol>
         {rows.length === 0 && <p className="py-10 text-center text-muted">{g.noMatch(query)}</p>}
       </div>
+      )}
+      {view === 'list' && rows.length === 0 && <p className="py-10 text-center text-muted">{g.noMatch(query)}</p>}
+    </div>
+  );
+}
+
+/** Compact list: one row per driver, grouped by contract end year (or by team). */
+function ContractList({ rows, mode }: { rows: Driver[]; mode: SortMode }) {
+  const tr = t();
+  const g = tr.gridUi;
+  const groups: { key: string; title: string; drivers: Driver[] }[] = [];
+  for (const d of rows) {
+    const key = mode === 'team' ? d.team : String(d.contractEnd);
+    let grp = groups.find((x) => x.key === key);
+    if (!grp) {
+      grp = { key, title: mode === 'team' ? getTeam(d.team).name : g.listHeading(d.contractEnd), drivers: [] };
+      groups.push(grp);
+    }
+    grp.drivers.push(d);
+  }
+  return (
+    <div className="mt-8 space-y-8">
+      {groups.map((grp) => (
+        <section key={grp.key}>
+          <h3 className="mb-2 flex items-baseline justify-between border-b-2 border-paint pb-1 font-cond text-2xl font-black uppercase italic">
+            <span>{grp.title}</span>
+            <span className="font-body text-xs font-semibold normal-case not-italic tracking-wide text-muted">{g.driversCount(grp.drivers.length)}</span>
+          </h3>
+          <ul className="divide-y divide-line">
+            {grp.drivers.map((d) => {
+              const team = getTeam(d.team);
+              return (
+                <li key={d.id}>
+                  <a href={href(driverPath(d))} className="flex items-center gap-3 py-2.5 hover:bg-tar2">
+                    <span className="h-8 w-1 shrink-0" style={{ background: team.color }} aria-hidden />
+                    <span className="w-8 shrink-0 text-right font-cond text-xl font-black italic tabular-nums" style={{ color: textColor(team.color) }}>
+                      {d.number ?? '?'}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                        <span className="font-semibold leading-tight">{d.name}</span>
+                        {d.rookie && <Flag>{tr.rookie}</Flag>}
+                        {d.status === 'unsigned' && <Flag>{tr.unsigned}</Flag>}
+                      </span>
+                      <span className="block text-xs text-muted">
+                        {team.name} · {tr.updatedOn(formatShortDate(driverUpdated(d)))}
+                      </span>
+                    </span>
+                    <span className="shrink-0 text-right">
+                      <span className="block font-body text-[9px] font-semibold uppercase tracking-widest text-muted">{tr.endLabel(d)}</span>
+                      <span className="block font-cond text-xl font-black italic leading-none tabular-nums">
+                        {d.contractEnd}
+                        {(d.optionYear || d.optionBeyond) && <span className="text-flag">+</span>}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ))}
     </div>
   );
 }

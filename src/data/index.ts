@@ -24,6 +24,8 @@ export interface Driver {
   rookie?: boolean;
   note: string;
   source: { label: string; url: string };
+  /** Date this entry was last changed or re-checked (YYYY-MM-DD). */
+  updated?: string;
 }
 
 export interface Data {
@@ -83,3 +85,6 @@ export const changes = [...(changesRaw.entries as Change[])].sort((a, b) => b.da
 
 export const changesFor = (driverId: string) =>
   changes.filter((c) => c.driver === driverId || (c.team && c.team === driverById.get(driverId)?.team && c.text.includes(lastName(driverById.get(driverId)!.name))));
+
+/** When a driver's entry was last updated, falling back to the data file's date. */
+export const driverUpdated = (d: Driver) => d.updated ?? data.updated;
