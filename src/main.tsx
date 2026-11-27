@@ -19,5 +19,5 @@ const app = (
 );
 
 // Production HTML is pre-rendered at build time (see scripts/prerender.mjs), so hydrate it.
-if (rootElement.hasChildNodes()) hydrateRoot(rootElement, app);
+if (rootElement.firstElementChild) hydrateRoot(rootElement, app);
 else createRoot(rootElement).render(app);
