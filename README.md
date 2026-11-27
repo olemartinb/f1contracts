@@ -2,6 +2,13 @@
 
 A fan site that shows when every Formula 1 driver's contract ends.
 
+## How it works
+
+- **Data:** every contract is one entry in `src/data/f1data.json`, with its end year, any option, whether the length is official or reported, a note and a source link. Contract news goes in `src/data/changes.json`.
+- **Build:** `npm run build` renders a share image per driver, pre-renders every page (home, 24 drivers, 11 teams, market, grid, per-year and changes pages) to static HTML in five languages, and packs the result into a Cloudflare Worker. Only the home page loads JavaScript, for the interactive grid.
+- **Hosting:** the Worker (`worker/index.js`) serves the files with cache and security headers and redirects `f1-contracts.com` to `www`.
+- **Updates:** a Claude Code scheduled task runs every morning. It checks for contract news, updates the data and translations, opens and merges a pull request when the build passes, and deploys `main`.
+
 ## Updating contracts
 
 All data lives in [`src/data/f1data.json`](src/data/f1data.json). For each driver:
@@ -67,3 +74,7 @@ Ads are off until you add your IDs to [`src/config.ts`](src/config.ts):
 3. Turn on a consent message for EEA and UK visitors: AdSense → Privacy & messaging → European regulations. Google requires this for visitors from Norway and the EU, and the AdSense script shows it automatically.
 
 The privacy page at `/privacy` describes the ads once `adsense.client` is set.
+
+## License
+
+Code and data are released under the [MIT License](LICENSE). The Barlow fonts in `src/fonts/` and `scripts/og/` are under the SIL Open Font License. Contract notes link to their original sources, which belong to their publishers.
