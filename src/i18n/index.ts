@@ -63,6 +63,10 @@ export function formatDate(iso: string) {
   });
 }
 
+export function formatShortDate(iso: string) {
+  return new Date(`${iso}T12:00:00Z`).toLocaleDateString(t().locale, { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+}
+
 export function formatChangeDate(date: string) {
   const [y, m, d] = date.split('-').map(Number);
   const dt = new Date(Date.UTC(y, m - 1, d ?? 1, 12));

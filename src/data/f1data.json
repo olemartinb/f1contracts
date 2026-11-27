@@ -3,17 +3,61 @@
   "currentSeason": 2026,
   "nextSeason": 2027,
   "teams": [
-    { "id": "mclaren", "name": "McLaren", "color": "#FF8000" },
-    { "id": "mercedes", "name": "Mercedes", "color": "#27F4D2" },
-    { "id": "red-bull", "name": "Red Bull Racing", "color": "#3671C6" },
-    { "id": "ferrari", "name": "Ferrari", "color": "#E8002D" },
-    { "id": "williams", "name": "Williams", "color": "#1868DB" },
-    { "id": "racing-bulls", "name": "Racing Bulls", "color": "#6692FF" },
-    { "id": "aston-martin", "name": "Aston Martin", "color": "#229971" },
-    { "id": "haas", "name": "Haas", "color": "#B6BABD" },
-    { "id": "audi", "name": "Audi", "color": "#F50537" },
-    { "id": "alpine", "name": "Alpine", "color": "#00A1E8" },
-    { "id": "cadillac", "name": "Cadillac", "color": "#C8A951" }
+    {
+      "id": "mclaren",
+      "name": "McLaren",
+      "color": "#FF8000"
+    },
+    {
+      "id": "mercedes",
+      "name": "Mercedes",
+      "color": "#27F4D2"
+    },
+    {
+      "id": "red-bull",
+      "name": "Red Bull Racing",
+      "color": "#3671C6"
+    },
+    {
+      "id": "ferrari",
+      "name": "Ferrari",
+      "color": "#E8002D"
+    },
+    {
+      "id": "williams",
+      "name": "Williams",
+      "color": "#1868DB"
+    },
+    {
+      "id": "racing-bulls",
+      "name": "Racing Bulls",
+      "color": "#6692FF"
+    },
+    {
+      "id": "aston-martin",
+      "name": "Aston Martin",
+      "color": "#229971"
+    },
+    {
+      "id": "haas",
+      "name": "Haas",
+      "color": "#B6BABD"
+    },
+    {
+      "id": "audi",
+      "name": "Audi",
+      "color": "#F50537"
+    },
+    {
+      "id": "alpine",
+      "name": "Alpine",
+      "color": "#00A1E8"
+    },
+    {
+      "id": "cadillac",
+      "name": "Cadillac",
+      "color": "#C8A951"
+    }
   ],
   "drivers": [
     {
@@ -26,7 +70,11 @@
       "basis": "official",
       "status": "signed",
       "note": "Extended in August 2026 from 2028 to the end of 2030. Reports say it includes performance-related exit clauses.",
-      "source": { "label": "Red Bull", "url": "https://www.redbull.com/in-en/max-verstappen-red-bull-contract-extension-2030" }
+      "source": {
+        "label": "Red Bull",
+        "url": "https://www.redbull.com/in-en/max-verstappen-red-bull-contract-extension-2030"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "isack-hadjar",
@@ -38,7 +86,11 @@
       "basis": "official",
       "status": "signed",
       "note": "Extended for one more year alongside Verstappen.",
-      "source": { "label": "ESPN", "url": "https://www.espn.com/f1/story/_/id/50011696/isack-hadjar-signs-red-bull-extension-race-alongside-max-verstappen-2027" }
+      "source": {
+        "label": "ESPN",
+        "url": "https://www.espn.com/f1/story/_/id/50011696/isack-hadjar-signs-red-bull-extension-race-alongside-max-verstappen-2027"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "lando-norris",
@@ -51,7 +103,11 @@
       "basis": "official",
       "status": "signed",
       "note": "2025 world champion. Signed in August 2026 until at least the end of 2030, with a multi-year option beyond that.",
-      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/lando-norris-commits-future-to-mclaren-as-he-signs-new-deal-until-the-end-of-2030.7ErHTktjoW2mAo5zEEtuA0" }
+      "source": {
+        "label": "Formula1.com",
+        "url": "https://www.formula1.com/en/latest/article/lando-norris-commits-future-to-mclaren-as-he-signs-new-deal-until-the-end-of-2030.7ErHTktjoW2mAo5zEEtuA0"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "oscar-piastri",
@@ -63,7 +119,11 @@
       "basis": "reported",
       "status": "signed",
       "note": "Multi-year extension signed in March 2025. McLaren did not give an end date; widely reported as at least 2028.",
-      "source": { "label": "Sky Sports", "url": "https://www.skysports.com/f1/news/12433/13326165/oscar-piastri-mclaren-driver-signs-new-contract-extension-until-at-least-2028" }
+      "source": {
+        "label": "Sky Sports",
+        "url": "https://www.skysports.com/f1/news/12433/13326165/oscar-piastri-mclaren-driver-signs-new-contract-extension-until-at-least-2028"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "charles-leclerc",
@@ -75,7 +135,11 @@
       "basis": "reported",
       "status": "signed",
       "note": "Extended before the 2026 Monaco Grand Prix. Ferrari did not give the length; Sky Sports reports the end of 2028.",
-      "source": { "label": "Sky Sports", "url": "https://www.skysports.com/f1/news/12433/13550326/charles-leclerc-ferrari-driver-extends-contract-with-team-ahead-of-home-monaco-grand-prix" }
+      "source": {
+        "label": "Sky Sports",
+        "url": "https://www.skysports.com/f1/news/12433/13550326/charles-leclerc-ferrari-driver-extends-contract-with-team-ahead-of-home-monaco-grand-prix"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "lewis-hamilton",
@@ -88,7 +152,11 @@
       "basis": "reported",
       "status": "signed",
       "note": "Ferrari has never confirmed the length. Reported to run through 2027, with a 2028 option that Hamilton alone can trigger.",
-      "source": { "label": "PlanetF1", "url": "https://www.planetf1.com/news/lewis-hamilton-ferrari-contract-2028-option-martin-brundle" }
+      "source": {
+        "label": "PlanetF1",
+        "url": "https://www.planetf1.com/news/lewis-hamilton-ferrari-contract-2028-option-martin-brundle"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "george-russell",
@@ -100,7 +168,11 @@
       "basis": "reported",
       "status": "signed",
       "note": "One-plus-one deal signed in 2025. Toto Wolff has confirmed him for 2027.",
-      "source": { "label": "Motorsport.com", "url": "https://www.motorsport.com/f1/news/mercedes-to-keep-driver-line-up-for-f1-2027-says-toto-wolff/10833944/" }
+      "source": {
+        "label": "Motorsport.com",
+        "url": "https://www.motorsport.com/f1/news/mercedes-to-keep-driver-line-up-for-f1-2027-says-toto-wolff/10833944/"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "kimi-antonelli",
@@ -112,7 +184,11 @@
       "basis": "reported",
       "status": "signed",
       "note": "2026 world champion, clinched in Mexico City. Confirmed for 2027; reports say Mercedes holds options beyond that.",
-      "source": { "label": "GrandPrix.com", "url": "https://www.grandprix.com/news/antonelli-has-2027-mercedes-deal-as-wolff-promises-appropriate-reward.html" }
+      "source": {
+        "label": "GrandPrix.com",
+        "url": "https://www.grandprix.com/news/antonelli-has-2027-mercedes-deal-as-wolff-promises-appropriate-reward.html"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "fernando-alonso",
@@ -124,7 +200,11 @@
       "basis": "official",
       "status": "signed",
       "note": "Extended in September 2026. Alonso has said the new deal covers only 2027.",
-      "source": { "label": "F1-Fansite", "url": "https://www.f1-fansite.com/f1-news/alonso-still-doubts-this-is-his-final-f1-deal/" }
+      "source": {
+        "label": "F1-Fansite",
+        "url": "https://www.f1-fansite.com/f1-news/alonso-still-doubts-this-is-his-final-f1-deal/"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "lance-stroll",
@@ -136,7 +216,11 @@
       "basis": "reported",
       "status": "signed",
       "note": "Extended alongside Alonso in September 2026 on what the team called a long-term deal. No end date given; at least 2027.",
-      "source": { "label": "Honda", "url": "https://global.honda/en/F1/AstonMartin/2027-season-release/" }
+      "source": {
+        "label": "Honda",
+        "url": "https://global.honda/en/F1/AstonMartin/2027-season-release/"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "alexander-albon",
@@ -148,7 +232,11 @@
       "basis": "official",
       "status": "signed",
       "note": "One-year extension announced in August 2026.",
-      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/williams-confirm-albon-will-remain-with-the-team-in-2027.3ZwdrAmEY4MGL5Ce1eXHIQ" }
+      "source": {
+        "label": "Formula1.com",
+        "url": "https://www.formula1.com/en/latest/article/williams-confirm-albon-will-remain-with-the-team-in-2027.3ZwdrAmEY4MGL5Ce1eXHIQ"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "carlos-sainz",
@@ -160,7 +248,11 @@
       "basis": "reported",
       "status": "signed",
       "note": "Multi-year extension announced in August 2026. Length not disclosed; at least 2028.",
-      "source": { "label": "Sky Sports", "url": "https://www.skysports.com/f1/news/12433/13574716/carlos-sainz-williams-driver-signs-multi-year-contract-extension-to-remain-with-team-in-2027-and-beyond" }
+      "source": {
+        "label": "Sky Sports",
+        "url": "https://www.skysports.com/f1/news/12433/13574716/carlos-sainz-williams-driver-signs-multi-year-contract-extension-to-remain-with-team-in-2027-and-beyond"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "liam-lawson",
@@ -172,7 +264,11 @@
       "basis": "official",
       "status": "signed",
       "note": "New contract for 2027 announced on 12 November 2026.",
-      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/lawson-and-lindblad-to-remain-at-racing-bulls-for-2027-as-team-confirm-unchanged-line-up.1vwKafZKAx8zw2Tb4B8fPx" }
+      "source": {
+        "label": "Formula1.com",
+        "url": "https://www.formula1.com/en/latest/article/lawson-and-lindblad-to-remain-at-racing-bulls-for-2027-as-team-confirm-unchanged-line-up.1vwKafZKAx8zw2Tb4B8fPx"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "arvid-lindblad",
@@ -184,7 +280,11 @@
       "basis": "official",
       "status": "signed",
       "note": "Stays for a second season after his 2026 rookie year.",
-      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/lawson-and-lindblad-to-remain-at-racing-bulls-for-2027-as-team-confirm-unchanged-line-up.1vwKafZKAx8zw2Tb4B8fPx" }
+      "source": {
+        "label": "Formula1.com",
+        "url": "https://www.formula1.com/en/latest/article/lawson-and-lindblad-to-remain-at-racing-bulls-for-2027-as-team-confirm-unchanged-line-up.1vwKafZKAx8zw2Tb4B8fPx"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "nico-hulkenberg",
@@ -196,7 +296,11 @@
       "basis": "official",
       "status": "signed",
       "note": "Mattia Binotto confirmed his existing deal covers 2027.",
-      "source": { "label": "GrandPrix.com", "url": "https://www.grandprix.com/news/audi-confirms-hulkenberg-and-bortoleto-for-2027.html" }
+      "source": {
+        "label": "GrandPrix.com",
+        "url": "https://www.grandprix.com/news/audi-confirms-hulkenberg-and-bortoleto-for-2027.html"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "gabriel-bortoleto",
@@ -208,7 +312,11 @@
       "basis": "official",
       "status": "signed",
       "note": "Under contract until at least the end of 2027.",
-      "source": { "label": "GrandPrix.com", "url": "https://www.grandprix.com/news/audi-confirms-hulkenberg-and-bortoleto-for-2027.html" }
+      "source": {
+        "label": "GrandPrix.com",
+        "url": "https://www.grandprix.com/news/audi-confirms-hulkenberg-and-bortoleto-for-2027.html"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "pierre-gasly",
@@ -220,7 +328,11 @@
       "basis": "official",
       "status": "signed",
       "note": "Extension signed in 2025 runs to the end of 2028.",
-      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/gasly-commits-long-term-future-to-alpine-as-he-signs-new-contract-extension.wgdUGA4Xzo6fWpo6JK7eg" }
+      "source": {
+        "label": "Formula1.com",
+        "url": "https://www.formula1.com/en/latest/article/gasly-commits-long-term-future-to-alpine-as-he-signs-new-contract-extension.wgdUGA4Xzo6fWpo6JK7eg"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "franco-colapinto",
@@ -232,7 +344,11 @@
       "basis": "official",
       "status": "signed",
       "note": "Alpine took up its option for 2027.",
-      "source": { "label": "ESPN", "url": "https://www.espn.co.uk/f1/story/_/id/49740685/franco-colapinto-signs-new-contract-stay-alpine-2027-formula-1" }
+      "source": {
+        "label": "ESPN",
+        "url": "https://www.espn.co.uk/f1/story/_/id/49740685/franco-colapinto-signs-new-contract-stay-alpine-2027-formula-1"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "oliver-bearman",
@@ -244,7 +360,11 @@
       "basis": "official",
       "status": "signed",
       "note": "Haas confirmed his new contract for 2027 ahead of the Qatar Grand Prix, completing the 2027 grid. Reported as a one-year deal.",
-      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/bearman-to-continue-with-haas-for-2027-as-he-completes-next-years-grid.dRq9fWh9OGjhXuShgGnqE" }
+      "source": {
+        "label": "Formula1.com",
+        "url": "https://www.formula1.com/en/latest/article/bearman-to-continue-with-haas-for-2027-as-he-completes-next-years-grid.dRq9fWh9OGjhXuShgGnqE"
+      },
+      "updated": "2026-11-27"
     },
     {
       "id": "rafael-camara",
@@ -257,7 +377,11 @@
       "status": "signed",
       "rookie": true,
       "note": "Ferrari junior and F3 champion. Multi-year deal from 2027 replacing Esteban Ocon; length not disclosed. Race number not yet announced.",
-      "source": { "label": "RACER", "url": "https://racer.com/2026/10/15/haas-f1-signs-rookie-camara-to-multi-year-contract-from-2027" }
+      "source": {
+        "label": "RACER",
+        "url": "https://racer.com/2026/10/15/haas-f1-signs-rookie-camara-to-multi-year-contract-from-2027"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "sergio-perez",
@@ -269,7 +393,11 @@
       "basis": "official",
       "status": "signed",
       "note": "Multi-year extension to 2029 announced before the 2026 Mexico City Grand Prix.",
-      "source": { "label": "Grande Prêmio", "url": "https://grandepremio.com/en/f1/cadillac-confirms-perez-on-new-f1-contract-through-2029-as-bottas-seat-remains-uncertain/" }
+      "source": {
+        "label": "Grande Prêmio",
+        "url": "https://grandepremio.com/en/f1/cadillac-confirms-perez-on-new-f1-contract-through-2029-as-bottas-seat-remains-uncertain/"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "valtteri-bottas",
@@ -281,7 +409,11 @@
       "basis": "official",
       "status": "signed",
       "note": "Cadillac took up his 2027 option on 18 November 2026.",
-      "source": { "label": "Yahoo Sports", "url": "https://sports.yahoo.com/articles/bottas-cadillac-deal-2027-cadillac-205835600.html" }
+      "source": {
+        "label": "Yahoo Sports",
+        "url": "https://sports.yahoo.com/articles/bottas-cadillac-deal-2027-cadillac-205835600.html"
+      },
+      "updated": "2026-11-23"
     },
     {
       "id": "esteban-ocon",
@@ -293,7 +425,11 @@
       "basis": "official",
       "status": "leaving",
       "note": "Leaves Haas after the 2026 season. No 2027 race seat confirmed.",
-      "source": { "label": "Formula1.com", "url": "https://www.formula1.com/en/latest/article/ocon-confirms-he-will-leave-haas-at-end-of-2026-season.cJjg9W9Om5ZW6Mn9GZ75v" }
+      "source": {
+        "label": "Formula1.com",
+        "url": "https://www.formula1.com/en/latest/article/ocon-confirms-he-will-leave-haas-at-end-of-2026-season.cJjg9W9Om5ZW6Mn9GZ75v"
+      },
+      "updated": "2026-11-23"
     }
   ]
 }

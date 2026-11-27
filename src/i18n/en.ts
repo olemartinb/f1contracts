@@ -52,6 +52,7 @@ const en = {
   details: 'Details',
   closeDetails: (name: string) => `Close details for ${name}`,
   fullPage: 'Full contract page →',
+  updatedOn: (date: string) => `Updated ${date}`,
   advertisement: 'Advertisement',
 
   nav: { grid: 'Grid', market: 'Market', teams: 'Teams', changes: 'Changes', faq: 'FAQ' },
@@ -82,6 +83,11 @@ const en = {
   },
 
   gridUi: {
+    viewLabel: 'View',
+    viewGrid: 'Grid',
+    viewList: 'List',
+    listHeading: (y: number) => `Contract ends ${y}`,
+    driversCount: (n: number) => `${n} driver${n === 1 ? '' : 's'}`,
     order: 'Order the grid',
     byContract: 'By contract length',
     byTeam: 'By team',
@@ -183,6 +189,7 @@ const en = {
     factNumber: (y: number) => `Number (${y})`,
     factOption: 'Option',
     factLength: 'Length',
+    factUpdated: 'Updated',
     optionNone: 'None known',
     optionYes: 'Yes',
     official: 'Official',
